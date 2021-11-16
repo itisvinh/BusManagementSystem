@@ -40,8 +40,7 @@ public class LogIn_Controller {
 
     @FXML
     public void buttonMouseEnter(MouseEvent mouseEvent) {
-        ((Button)mouseEvent.getSource()).setStyle("-fx-background-color: #e6ccb2;");
-        System.out.println(mouseEvent.getSource().getClass().getName());
+        ((Button)mouseEvent.getSource()).setStyle("-fx-background-color: #f2e9e4;");
     }
 
     @FXML
