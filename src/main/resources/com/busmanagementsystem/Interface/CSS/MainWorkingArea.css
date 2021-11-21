@@ -1,0 +1,23 @@
+.mainMenuButton {
+    -fx-background-color: transparent;
+    -fx-background-color:  #1f7a8c;
+    -fx-background-radius: 0 30 30 0;
+
+}
+
+#homeButton {
+    -fx-background-color: #136988;
+    -fx-background-radius: 50;
+}
+#mainMenuArea {
+    -fx-background-image: url(../Images/mainMenu_background.jpg);
+    -fx-background-size: cover;
+}
+
+
+#exit, #maximize, #hide {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+
+}
