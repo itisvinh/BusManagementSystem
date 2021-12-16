@@ -9,8 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -23,11 +22,12 @@ public class MainWorkingArea_Controller implements Initializable {
     @FXML
     private Button exit, maximize, hide;
     @FXML
-    private Button currMainMenuButton;
-    @FXML
     private Pane mainSceneArea;
     // native vars
     private Node homeNode, routesNode, ticketsNode, accountNode, aboutNode;
+    // recently clicked button
+    private Button currMainMenuButton;
+    private Button prevHoverMainMenuButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,16 +48,20 @@ public class MainWorkingArea_Controller implements Initializable {
     public void mainMenuButtonMouseEnter(MouseEvent mouseEvent) {
 
         if ((Button)mouseEvent.getSource() != currMainMenuButton) {
-            ((Button) mouseEvent.getSource()).setStyle("-fx-background-color: #1f7a8c;");
-
-            applyFadeTransition((Button)mouseEvent.getSource(), Duration.seconds(0.3), 0.3, 1.0);
+            ((Button) mouseEvent.getSource()).setStyle("-fx-background-color: rgba(0, 255, 255, 0.2);");
         }
     }
 
     @FXML
     public void mainMenuButtonMouseExit(MouseEvent mouseEvent) {
-        if ((Button)mouseEvent.getSource() != currMainMenuButton)
-            ((Button)mouseEvent.getSource()).setStyle("-fx-background-color: transparent;");
+
+        if ((Button)mouseEvent.getSource() != currMainMenuButton) {
+            ((Button) mouseEvent.getSource()).setStyle("-fx-background-color: transparent;");
+            applyFadeTransition((Button) mouseEvent.getSource(), Duration.seconds(0.3), 0.3, 1.0);
+        }
+//        prevHoverMainMenuButton = (Button) mouseEvent.getSource();
+//        applyFadeTransition((Button)mouseEvent.getSource(), Duration.seconds(0.3), 0.3, 1.0);
+
     }
     // native method
 
@@ -87,7 +91,7 @@ public class MainWorkingArea_Controller implements Initializable {
         mainMenuButtonHighlight((Button) mouseEvent.getSource());
         try {
             if (ticketsNode == null) {
-                ticketsNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/example.fxml"));
+                ticketsNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Tickets_Scene.fxml"));
                 anchorChildFitParent(ticketsNode);
             }// remove all currently added nodes from mainSceneArea
             mainSceneArea.getChildren().clear();
@@ -102,7 +106,7 @@ public class MainWorkingArea_Controller implements Initializable {
         mainMenuButtonHighlight((Button) mouseEvent.getSource());
         try {
             if (accountNode == null) {
-                accountNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/example.fxml"));
+                accountNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Account_Scene.fxml"));
                 anchorChildFitParent(accountNode);
             }// remove all currently added nodes from mainSceneArea
             mainSceneArea.getChildren().clear();

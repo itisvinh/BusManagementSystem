@@ -1,3 +1,11 @@
+#backgroundPane {
+    -fx-background-insets: 10, 10, 10, 10;
+    -fx-effect: dropshadow(gaussian, rgba(33, 32, 32, 0.4), 10, 0.5, 0.0, 0.0);
+}
+.searchable-combo-box {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 16;
+}
 .functionButton {
     -fx-background-color: transparent;
     -fx-border-color: grey;
@@ -10,7 +18,14 @@
     -fx-text-fill: white;
     -fx-background-color: rgb(103, 33, 59);
 }
-
+.date-picker {
+    -fx-border-color: transparent;
+   -fx-background-color: transparent;
+}
+.date-picker > .date-picker-display-node {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 16 0 0 16;
+}
 #infoPane {
     -fx-background-color: #158383;
     -fx-background-radius: 10;
@@ -41,11 +56,15 @@
     /*-fx-background-insets: 0 11px 0 0;*/
 }
 
-#searchBar {
+.searchBar {
     -fx-background-color: rgba(124, 123, 123, 0.2);
     -fx-background-radius: 20;
+    -fx-border-radius: 20;
 }
-
+.searchBar:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(91, 79, 79, 0.56);
+}
 .searchButton {
     -fx-background-color: rgba(124, 123, 123, 0.2);
     -fx-background-radius: 15;
@@ -97,5 +116,34 @@
 
 .table-row-cell:selected {
     -fx-background-color: #ef7620;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: transparent;
+}
+
+/*   Ticket scene - Tab Pane   */
+.tab-pane .tab-header-area .headers-region .tab {
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area .headers-region .tab:selected {
+    -fx-border-color: rgb(103, 33, 59);
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 30;
+}
+
+.ticket-function-button-background {
+    -fx-background-color: rgba(124, 123, 123, 0.1);
+    -fx-background-radius: 20;
+}
+
+
+.ikonli-font-icon:hover {
+    -fx-background-color: red;
 }
 

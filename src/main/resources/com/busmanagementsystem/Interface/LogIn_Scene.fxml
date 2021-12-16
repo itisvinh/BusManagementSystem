@@ -18,7 +18,7 @@
             <children>
                 <Pane fx:id="controlsWrapper" layoutX="53.0" layoutY="49.0" onMouseClicked="#outsideOfTextFieldMouseClick" prefHeight="441.0" prefWidth="350.0" stylesheets="@CSS/LogIn.css">
                     <children>
-                        <Button fx:id="signIn" layoutX="67.0" layoutY="334.0" mnemonicParsing="false" onMouseEntered="#buttonMouseEnter" onMouseExited="#buttonMouseExit" prefHeight="37.0" prefWidth="83.0" styleClass="func_button" stylesheets="@CSS/LogIn.css" text="SIGN IN" />
+                        <Button fx:id="signIn" layoutX="67.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#signInButtonMouseClick" onMouseEntered="#buttonMouseEnter" onMouseExited="#buttonMouseExit" prefHeight="37.0" prefWidth="83.0" styleClass="func_button" stylesheets="@CSS/LogIn.css" text="SIGN IN" />
                         <TextField fx:id="username" layoutX="86.0" layoutY="195.0" onMouseClicked="#textFieldMouseClick" prefHeight="25.0" prefWidth="194.0" promptText="Username" styleClass="textField" stylesheets="@CSS/LogIn.css" />
                         <PasswordField fx:id="password" layoutX="86.0" layoutY="263.0" onMouseClicked="#textFieldMouseClick" prefHeight="25.0" prefWidth="198.0" promptText="Password" styleClass="textField" stylesheets="@CSS/LogIn.css" />
                         <FontIcon iconLiteral="fas-key" iconSize="20" layoutX="57.0" layoutY="284.0" onMouseClicked="#outsideOfTextFieldMouseClick" wrappingWidth="22.66661834716797" />
@@ -30,7 +30,7 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <Label layoutX="104.0" layoutY="395.0" text="CREDENTIAL NOT FOUND!" textFill="#c24e1d" />
+                        <Label fx:id="message" layoutX="104.0" layoutY="395.0" text="CREDENTIAL NOT FOUND!" textFill="#c24e1d" />
                     </children>
                 </Pane>
             </children></Pane>
@@ -40,7 +40,7 @@
          <children>
             <ImageView fitHeight="114.0" fitWidth="141.0" layoutX="90.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/logo.png"/>
+                  <Image url="@Images/logo.png" />
                </image>
             </ImageView>
             <Label layoutX="72.0" layoutY="450.0" text="LET US LEVEL UP YOUR JOURNEY" textFill="WHITE" />
