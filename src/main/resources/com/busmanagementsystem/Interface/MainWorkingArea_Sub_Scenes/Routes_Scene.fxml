@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="581.0" prefWidth="747.0" stylesheets="@../CSS/Routes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.busmanagementsystem.Interface.Routes_Controller">
+   <children>
+      <Button fx:id="addRoute" layoutX="88.0" layoutY="145.0" mnemonicParsing="false" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="  ADD" AnchorPane.leftAnchor="88.0" AnchorPane.topAnchor="145.0">
+         <graphic>
+            <FontIcon iconLiteral="fas-plus-circle" iconSize="15" />
+         </graphic></Button>
+      <TableView fx:id="routesTableView" layoutX="29.0" layoutY="264.0" prefHeight="302.0" prefWidth="700.0" stylesheets="@../CSS/Routes.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="264.0">
+
+         <columns>
+            <TableColumn fx:id="name_col" prefWidth="75.0" text="name" />
+            <TableColumn fx:id="age_col" prefWidth="75.0" text="age" />
+         </columns>
+
+      </TableView>
+      <Button fx:id="editRoute" layoutX="235.0" layoutY="145.0" mnemonicParsing="false" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="  EDIT" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="145.0">
+         <graphic>
+            <FontIcon iconLiteral="far-edit" iconSize="15" />
+         </graphic>
+      </Button>
+      <Button fx:id="removeRoute" layoutX="387.0" layoutY="145.0" mnemonicParsing="false" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="  REMOVE" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="145.0">
+         <graphic>
+            <FontIcon iconLiteral="fas-trash" iconSize="15" />
+         </graphic>
+      </Button>
+      <GridPane layoutX="262.0" layoutY="31.0" prefHeight="85.0" prefWidth="190.0" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="295.0" AnchorPane.topAnchor="31.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="awaitingRoutes_label" text="0" textFill="#994b9f" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label text="AWAITING ROUTES" textFill="#534f4f" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane layoutX="45.0" layoutY="31.0" prefHeight="85.0" prefWidth="190.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="512.0" AnchorPane.topAnchor="31.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="allRoutes_label" text="0" textFill="#be4125" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label text="ALL ROUTES" textFill="#534f4f" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane layoutX="494.0" layoutY="31.0" prefHeight="85.0" prefWidth="190.0" AnchorPane.leftAnchor="494.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="31.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="activeRoutes_label" text="0" textFill="#32959d" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label text="ACTIVE ROUTES" textFill="#534f4f" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <Button fx:id="searchRoutes" layoutX="533.0" layoutY="145.0" mnemonicParsing="false" onAction="#searchForRoutes" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text=" SEARCH">
+         <graphic>
+            <FontIcon iconLiteral="fas-search" iconSize="15" />
+         </graphic>
+      </Button>
+      <TextField layoutX="45.0" layoutY="215.0" prefHeight="30.0" prefWidth="653.0" promptText="TYPE TO SEARCH FOR ANY MATCHING FILED" styleClass="searchBar" stylesheets="@../CSS/Routes.css" />
+      <FontIcon iconLiteral="fas-search" iconSize="15" layoutX="663.0" layoutY="235.0" wrappingWidth="18.399999999999864" />
+   </children>
+</AnchorPane>

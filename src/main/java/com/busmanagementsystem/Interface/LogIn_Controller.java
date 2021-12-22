@@ -3,15 +3,24 @@ package com.busmanagementsystem.Interface;
 import com.busmanagementsystem.Communicator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.ToggleSwitch;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LogIn_Controller {
+
+public class LogIn_Controller implements Initializable {
     // Stage location
     private double yOffset, xOffset;
     // sign in modes toggle switch
@@ -31,6 +40,8 @@ public class LogIn_Controller {
     private ToggleSwitch toggleSwitch;
     @FXML
     private Pane controlsWrapper;
+    @FXML
+    private Label message;
 
     @FXML
     public void cancelButtonMouseClick(MouseEvent mouseEvent) {
@@ -86,4 +97,45 @@ public class LogIn_Controller {
         yOffset = mouseEvent.getSceneY();
     }
 
+    // -1: not found, 0: employee, 1: admin
+    private int checkForCredential() {
+        return 0;
+    }
+
+    private void showNotification(String msg) {
+        Notifications notifications = Notifications.create();
+        notifications.text(msg);
+        notifications.hideAfter(Duration.seconds(5));
+        notifications.showInformation();
+    }
+
+    private void startMainWorkingArea() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MainWorkingArea_Scene.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Communicator.primaryStage.setScene(scene);
+            showNotification("Log In as Admin");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void signInButtonMouseClick(MouseEvent mouseEvent) {
+        // validation
+        switch (checkForCredential()) {
+            case -1: message.setVisible(true);
+                break;
+            case 0: Communicator.startedAsAdmin = false;
+                    startMainWorkingArea();
+                break;
+            case 1: Communicator.startedAsAdmin = true;
+                    startMainWorkingArea();
+                break;
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        message.setVisible(false);
+    }
 }

@@ -8,4 +8,6 @@ module com.busmanagementsystem.Interface {
 
     opens com.busmanagementsystem.Interface to javafx.fxml;
     exports com.busmanagementsystem.Interface;
+    exports com.busmanagementsystem;
+    opens com.busmanagementsystem to javafx.fxml;
 }

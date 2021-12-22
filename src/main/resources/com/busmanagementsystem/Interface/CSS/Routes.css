@@ -1,0 +1,149 @@
+#backgroundPane {
+    -fx-background-insets: 10, 10, 10, 10;
+    -fx-effect: dropshadow(gaussian, rgba(33, 32, 32, 0.4), 10, 0.5, 0.0, 0.0);
+}
+.searchable-combo-box {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 16;
+}
+.functionButton {
+    -fx-background-color: transparent;
+    -fx-border-color: grey;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+}
+.functionButton:hover{
+    -fx-border-color: rgb(103, 33, 59);
+    -fx-text-fill: white;
+    -fx-background-color: rgb(103, 33, 59);
+}
+.date-picker {
+    -fx-border-color: transparent;
+   -fx-background-color: transparent;
+}
+.date-picker > .date-picker-display-node {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 16 0 0 16;
+}
+#infoPane {
+    -fx-background-color: #158383;
+    -fx-background-radius: 10;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .nested-column-header .table-column .label{
+    -fx-text-fill: white;
+}
+
+/*The corner of the header section*/
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+/*The bottom right corner between the scrollbars*/
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+/* global Column header*/
+.table-view .column-header-background{
+    -fx-background-color: rgb(103, 33, 59);
+    /*-fx-background-radius: 7px 7px 0px 0px;*/
+    -fx-background-radius: 7;
+    /*-fx-background-insets: 0 11px 0 0;*/
+}
+
+.searchBar {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+.searchBar:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(91, 79, 79, 0.56);
+}
+.searchButton {
+    -fx-background-color: rgba(124, 123, 123, 0.2);
+    -fx-background-radius: 15;
+}
+
+.searchButton:hover {
+    -fx-background-color: rgb(103, 33, 59);
+}
+
+/*Individual column header*/
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+/*Cells and rows*/
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell {
+    -fx-background-radius: 20px;
+    /*-fx-background-insets: 0, 0 0 10 0;*/
+    -fx-pref-height: 30px;
+
+    -fx-padding: 3 0 0 0;
+    /*-fx-border-insets: 5 0 0 0;*/
+    /*-fx-background-insets: 5 0 0 0;*/
+
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: black;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: rgba(173, 56, 98, 0.05);
+}
+
+.table-row-cell:even{
+    -fx-background-color: transparent;
+}
+
+.table-view .table-column, .table-view .column-header{
+    -fx-alignment: CENTER-RIGHT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #ef7620;
+}
+
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: transparent;
+}
+
+/*   Ticket scene - Tab Pane   */
+.tab-pane .tab-header-area .headers-region .tab {
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area .headers-region .tab:selected {
+    -fx-border-color: rgb(103, 33, 59);
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 30;
+}
+
+.ticket-function-button-background {
+    -fx-background-color: rgba(124, 123, 123, 0.1);
+    -fx-background-radius: 20;
+}
+
+
+.ikonli-font-icon:hover {
+    -fx-background-color: red;
+}
+
