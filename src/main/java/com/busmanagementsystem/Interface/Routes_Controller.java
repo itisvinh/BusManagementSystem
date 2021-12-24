@@ -83,4 +83,8 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         // event when user click filter search and it returns a query
         System.out.println("routes - changed");
     }
+
+    public void onActionAddRoute(ActionEvent event) {
+
+    }
 }

@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="581.0" prefWidth="747.0" stylesheets="@../CSS/Routes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.busmanagementsystem.Interface.Routes_Controller">
    <children>
-      <Button fx:id="addRoute" layoutX="88.0" layoutY="145.0" mnemonicParsing="false" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="  ADD" AnchorPane.leftAnchor="88.0" AnchorPane.topAnchor="145.0">
+      <Button fx:id="addRoute" layoutX="88.0" layoutY="145.0" mnemonicParsing="false" onAction="#onActionAddRoute" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit" prefHeight="33.0" prefWidth="130.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="  ADD" AnchorPane.leftAnchor="88.0" AnchorPane.topAnchor="145.0">
          <graphic>
             <FontIcon iconLiteral="fas-plus-circle" iconSize="15" />
          </graphic></Button>
