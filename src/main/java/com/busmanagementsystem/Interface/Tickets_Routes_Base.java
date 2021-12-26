@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 // and OBSERVE the change event of the returned value
 public abstract class Tickets_Routes_Base {
     // this var captures the returned search query
-    protected StringProperty routesSearchFilterQuery = new SimpleStringProperty("");
+    protected StringProperty routesSearchFilterQuery = new SimpleStringProperty("##");
     // chang this value to False if starting as strict search
     protected boolean startAsStrictSearch = false;
 

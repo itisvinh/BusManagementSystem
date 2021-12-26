@@ -1,6 +1,7 @@
 package com.busmanagementsystem.Interface;
 
 import com.busmanagementsystem.Communicator;
+import com.busmanagementsystem.Database.Services.CredentialService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,6 +74,7 @@ public class LogIn_Controller implements Initializable {
             currTextField = (TextField) mouseEvent.getSource();
             currTextField.setStyle("-fx-border-color: #2a9d8f;");
         }
+        message.setVisible(false);
     }
 
     @FXML
@@ -97,11 +99,6 @@ public class LogIn_Controller implements Initializable {
         yOffset = mouseEvent.getSceneY();
     }
 
-    // -1: not found, 0: employee, 1: admin
-    private int checkForCredential() {
-        return 0;
-    }
-
     private void showNotification(String msg) {
         Notifications notifications = Notifications.create();
         notifications.text(msg);
@@ -109,28 +106,43 @@ public class LogIn_Controller implements Initializable {
         notifications.showInformation();
     }
 
-    private void startMainWorkingArea() {
+    private void startMainWorkingArea(String role) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MainWorkingArea_Scene.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Communicator.primaryStage.setScene(scene);
-            showNotification("Log In as Admin");
+            showNotification("Logged In as " + role);
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
+    private boolean validate() {
+        if (username.getText().isBlank() ||
+            password.getText().isBlank())
+            return false;
+        return true;
+    }
+
     public void signInButtonMouseClick(MouseEvent mouseEvent) {
-        // validation
-        switch (checkForCredential()) {
-            case -1: message.setVisible(true);
-                break;
-            case 0: Communicator.startedAsAdmin = false;
-                    startMainWorkingArea();
-                break;
-            case 1: Communicator.startedAsAdmin = true;
-                    startMainWorkingArea();
-                break;
+        if (validate()) {
+            switch (CredentialService.authenticate(username.getText(), password.getText())) {
+                case "admin":
+                    Communicator.startedAsAdmin = true;
+                    startMainWorkingArea("Administrator");
+                    break;
+                case "seller":
+                    Communicator.startedAsAdmin = false;
+                    startMainWorkingArea("Seller");
+                    break;
+                default:
+                    message.setText("Credential not found!");
+                    message.setVisible(true);
+                    break;
+            }
+        } else {
+            message.setText("Please type in your credential!");
+            message.setVisible(true);
         }
     }
 

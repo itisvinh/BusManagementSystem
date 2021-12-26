@@ -1,6 +1,7 @@
 package com.busmanagementsystem.Interface;
 
 import com.busmanagementsystem.Communicator;
+import com.busmanagementsystem.Database.Services.BusService;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,13 +23,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Tickets_Controller extends Tickets_Routes_Base implements Initializable {
+    BusService busService = new BusService();
     @FXML
     private AnchorPane ticketFunctionalButtonArea;
+    @FXML
+    private SearchableComboBox comboBoxBus;
 
     @Override
     protected void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
         // event when user click filter search and it returns a query
-        System.out.println("ticket - changed");
+        busService.loadBuses(comboBoxBus, routesSearchFilterQuery.getValue());
+        System.out.println("ticket - changed: " + routesSearchFilterQuery.getValue());
     }
 
     @Override

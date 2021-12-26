@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class CredentialService {
-    private String authenticate(String username, String password) {
+    public static String authenticate(String username, String password) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -21,9 +21,14 @@ public class CredentialService {
             preparedStatement.setString(2, passwd);
 
             resultSet = preparedStatement.executeQuery();
+
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
-                return resultSet.getString("EmployeeID");
+                String role = resultSet.getString("EmployeeID");
+                if (role.substring(0, 3).equals("ADM"))
+                    return "admin";
+                else
+                    return "seller";
             }
             else
                 return "non-exist";

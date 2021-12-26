@@ -147,3 +147,22 @@
     -fx-background-color: red;
 }
 
+/* routes editor */
+#editorAnchorPane {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-background-image: url(../Images/editor-background.jpg);
+    -fx-background-size: cover;
+}
+
+#editorArea {
+    -fx-background-color: rgba(240, 240, 240, 0.9);
+    -fx-background-radius: 20;
+}
+
+.editor {
+    -fx-background-radius: 15;
+}
+
+
+
