@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
@@ -41,11 +42,13 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
 
     private ObservableList<Emp> list = FXCollections.observableArrayList();
 
-    public static void setCellFactories() {
+    public static void setCellFactories(TableView<Schedule> tv) {
         String[] fields = new String[] {"scheduleID", "busID", "driverID", "startingLocation",
                                         "destination", "departureTime", "price"};
 
-        
+        int i = 0;
+        for (TableColumn tableColumn : tv.getColumns())
+            tableColumn.setCellValueFactory(new PropertyValueFactory(fields[i++]));
     }
 
     @Override
@@ -112,5 +115,8 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         } catch (Exception ex) {
 
         }
+    }
+    public void djfkjab() {
+
     }
 }

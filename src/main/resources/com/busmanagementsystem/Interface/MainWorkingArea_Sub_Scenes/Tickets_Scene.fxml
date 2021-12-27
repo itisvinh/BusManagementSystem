@@ -23,7 +23,7 @@
             <FontIcon iconLiteral="fas-search" iconSize="15" />
          </graphic>
       </Button>
-      <TabPane layoutX="48.0" layoutY="48.0" prefHeight="439.0" prefWidth="373.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="93.80000000000001" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="325.4" AnchorPane.topAnchor="48.0">
+      <TabPane fx:id="tabPane" layoutX="48.0" layoutY="48.0" prefHeight="439.0" prefWidth="373.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="93.80000000000001" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="325.4" AnchorPane.topAnchor="48.0">
         <tabs>
           <Tab text="FLOOR 1">
             <content>

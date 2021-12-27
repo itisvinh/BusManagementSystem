@@ -1,6 +1,8 @@
 package com.busmanagementsystem.Database.Services;
 
 import com.busmanagementsystem.Database.Configs.DBConnection;
+import com.busmanagementsystem.Database.Pojos.Schedule;
+import com.busmanagementsystem.Interface.Routes_Controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,15 +42,16 @@ public class RouteService {
             tableView.getColumns().addAll(col);
 
             ColumnsAdded = true;
-            //System.out.println("Column ["+i+"] ");
+            Routes_Controller.setCellFactories(tableView);
         }
     }
 
     private void loadDataIntoTableView(TableView tableView, ResultSet resultSet) throws SQLException{
-        ObservableList<ObservableList> data = FXCollections.observableArrayList();
+        ObservableList<Schedule> data = FXCollections.observableArrayList();
         /********************************
          * Data added to ObservableList *
          ********************************/
+        /*
         while(resultSet.next()){
             //Iterate Row
             ObservableList<String> row = FXCollections.observableArrayList();
@@ -60,6 +63,23 @@ public class RouteService {
             data.add(row);
         }
         //FINALLY ADDED TO TableView
+        tableView.setItems(data);
+         */
+
+        while (resultSet.next()) {
+            Schedule schedule = new Schedule();
+
+            schedule.setScheduleID(resultSet.getString("ScheduleID"));
+            schedule.setBusID(resultSet.getString("BusID"));
+            schedule.setDriverID(resultSet.getString("DriverID"));
+            schedule.setStartingLocation(resultSet.getString("StartingLocation"));
+            schedule.setDestination(resultSet.getString("Destination"));
+            schedule.setDepartureTime(resultSet.getTime("DepartureTime"));
+            schedule.setPrice(resultSet.getFloat("Price"));
+
+            data.add(schedule);
+        }
+
         tableView.setItems(data);
     }
 

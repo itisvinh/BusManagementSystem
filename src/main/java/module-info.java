@@ -11,4 +11,6 @@ module com.busmanagementsystem.Interface {
     exports com.busmanagementsystem.Interface;
     exports com.busmanagementsystem;
     opens com.busmanagementsystem to javafx.fxml;
+    opens com.busmanagementsystem.Database.Pojos to java.base;
+    exports com.busmanagementsystem.Database.Pojos;
 }

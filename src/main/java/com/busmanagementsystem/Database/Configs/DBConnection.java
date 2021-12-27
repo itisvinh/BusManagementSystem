@@ -20,7 +20,10 @@ public class DBConnection {
 
     public static Connection getConn() throws SQLException {
         if (connection == null) {
-            String connectionString = "jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;databaseName=OUBus;integratedSecurity=true";
+            //vinh
+            //String connectionString = "jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;databaseName=OUBus;integratedSecurity=true";
+            // khoi
+            //String connectionString = "jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;databaseName=OUBus;user= ;password=";
             connection = DriverManager.getConnection(connectionString);
         }
         return connection;
