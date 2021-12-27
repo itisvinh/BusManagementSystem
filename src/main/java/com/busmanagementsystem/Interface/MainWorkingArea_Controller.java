@@ -72,7 +72,7 @@ public class MainWorkingArea_Controller implements Initializable {
         currMainMenuButton.setStyle("-fx-background-color: #8661c1;");
     }
     @FXML
-    public void routesButtonMouseClick(MouseEvent mouseEvent){
+    public void routesButtonMouseClick(MouseEvent mouseEvent) throws Exception{
         mainMenuButtonHighlight((Button) mouseEvent.getSource());
         try {
             if (routesNode == null) {

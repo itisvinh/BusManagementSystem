@@ -23,7 +23,7 @@
             <FontIcon iconLiteral="fas-search" iconSize="15" />
          </graphic>
       </Button>
-      <TabPane layoutX="48.0" layoutY="48.0" prefHeight="439.0" prefWidth="373.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="93.80000000000001" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="325.4" AnchorPane.topAnchor="48.0">
+      <TabPane fx:id="tabPane" layoutX="48.0" layoutY="48.0" prefHeight="439.0" prefWidth="373.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="93.80000000000001" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="325.4" AnchorPane.topAnchor="48.0">
         <tabs>
           <Tab text="FLOOR 1">
             <content>
@@ -193,121 +193,121 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="21" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="34" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="31" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="28" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="25" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="22" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="35" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="32" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="29" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="26" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="23" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="40" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="39" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="38" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="37" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="5">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="5">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="36" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="4">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="4">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="33" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="3">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="3">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="30" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="2">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="2">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="27" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="1">
+                              <VBox alignment="CENTER" onMouseClicked="#onMouseClickSeat" onMouseEntered="#onMouseEnterSeat" onMouseExited="#onMouseExitSeat" prefHeight="64.0" prefWidth="53.0" GridPane.rowIndex="1">
                                  <children>
                                     <FontIcon iconLiteral="fas-couch" iconSize="25" wrappingWidth="31.20001220703125" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="24" />
@@ -323,7 +323,7 @@
       </TabPane>
       <AnchorPane fx:id="ticketFunctionalButtonArea" layoutX="451.0" layoutY="60.0" prefHeight="242.0" prefWidth="230.0" styleClass="ticket-function-button-background" stylesheets="@../CSS/Routes.css" AnchorPane.rightAnchor="65.6" AnchorPane.topAnchor="60.0">
          <children>
-            <SearchableComboBox fx:id="selectBus" layoutX="12.0" layoutY="57.0" prefHeight="34.0" prefWidth="198.0" promptText="SELECT A BUS" styleClass="searchable-combo-box" stylesheets="@../CSS/Routes.css" />
+            <SearchableComboBox fx:id="comboBoxBus" layoutX="12.0" layoutY="57.0" prefHeight="34.0" prefWidth="198.0" promptText="SELECT A BUS" styleClass="searchable-combo-box" stylesheets="@../CSS/Routes.css" />
             <Button fx:id="searchRoutes" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchForRoutes" prefHeight="34.0" prefWidth="198.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text=" SEARCH FOR ROUTES">
                <graphic>
                   <FontIcon iconLiteral="fas-search" iconSize="15" />

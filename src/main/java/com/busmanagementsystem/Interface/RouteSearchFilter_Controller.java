@@ -1,5 +1,6 @@
 package com.busmanagementsystem.Interface;
 
+import com.busmanagementsystem.Database.Services.RouteService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 //  -- strict & non-strict filter search
 //  -- capture return value (String)
 public class RouteSearchFilter_Controller implements Initializable{
+    RouteService routeService = new RouteService();
     @FXML
     private Pane backgroundPane;
     @FXML
@@ -60,13 +62,21 @@ public class RouteSearchFilter_Controller implements Initializable{
     public void setCancelButtonVisibility(boolean isVisible) {
         this.cancel.setVisible(isVisible);
     }
+
+    private String extractTextFromComboBox() {
+        String filter = "", temp;
+        filter += (((temp = (String) comboBoxFrom.getSelectionModel().getSelectedItem()) != null) ? temp : "") + "#";
+        filter += (((temp = (String) comboBoxTo.getSelectionModel().getSelectedItem()) != null) ? temp : "") + "#";
+        filter += ((temp = (String) comboBoxTime.getSelectionModel().getSelectedItem()) != null) ? temp : "";
+        return filter;
+    }
     public void onActionCancel(ActionEvent actionEvent) {
         ((Stage)this.backgroundPane.getScene().getWindow()).close();
     }
 
     public void onActionSearch(ActionEvent actionEvent) {
         //checking for validation
-        returnSearchQuery.append("return value");
+        returnSearchQuery.append(extractTextFromComboBox());
         ((Stage)this.backgroundPane.getScene().getWindow()).close();
     }
 
@@ -77,17 +87,19 @@ public class RouteSearchFilter_Controller implements Initializable{
     }
 
     private void initializeComboBoxValues() {
-        updateComboBoxFromValues();
-        updateComboBoxToValues();
+        updateComboBoxFromValues(null, null);
+        updateComboBoxToValues(null, null);
 
         if (!isStrictSearch)
-            updateComboBoxTimeValues();
+            updateComboBoxTimeValues(null, null);
     }
 
     // only update the comboBox if it is not selected
-    private boolean updateComboBoxFromValues() {
+    private boolean updateComboBoxFromValues(Object destination, Object departureTime) {
+
         if (comboBoxFrom.getSelectionModel().getSelectedIndex() < 0) {
-            comboBoxFrom.getItems().addAll("value 1", "value 2", "value 3");
+            comboBoxFrom.getItems().clear();
+            routeService.getStartingLocations(comboBoxFrom, (String) destination, (String) departureTime);
             System.out.println("updating from");
             return true;
         } else {
@@ -96,9 +108,10 @@ public class RouteSearchFilter_Controller implements Initializable{
     }
 
     // only update the comboBox if it is not selected
-    private boolean updateComboBoxToValues() {
+    private boolean updateComboBoxToValues(Object startingLocation, Object departureTime) {
         if (comboBoxTo.getSelectionModel().getSelectedIndex() < 0) {
-            comboBoxTo.getItems().addAll("value 1", "value 2", "value 3");
+            comboBoxTo.getItems().clear();
+            routeService.getDestination(comboBoxTo, (String) startingLocation, (String) departureTime);
             System.out.println("updating to");
             return true;
         } else {
@@ -107,9 +120,10 @@ public class RouteSearchFilter_Controller implements Initializable{
     }
 
     // only update the comboBox if it is not selected
-    private boolean updateComboBoxTimeValues() {
+    private boolean updateComboBoxTimeValues(Object startingLocation, Object destination) {
         if (comboBoxTime.getSelectionModel().getSelectedIndex() < 0) {
-            comboBoxTime.getItems().addAll("value 1", "value 2", "value 3");
+            comboBoxTime.getItems().clear();
+            routeService.getDepartureTime(comboBoxTime, (String) startingLocation, (String) destination);
             System.out.println("updating time");
             return true;
         } else {
@@ -155,17 +169,23 @@ public class RouteSearchFilter_Controller implements Initializable{
         if (canFireNow()) {
             if (isStrictSearch) {
                 if (tryEnableComboBoxTime()) {
-                    updateComboBoxTimeValues();
                     // From & To are selected -> update comboBox Time values
+                    updateComboBoxTimeValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                            comboBoxTo.getSelectionModel().getSelectedItem());
+
                     System.out.println("from - strict search: enable time");
                 } else {
                     // To is not selected -> update comboBox To values
+                    updateComboBoxToValues(comboBoxFrom.getSelectionModel().getSelectedItem(), null);
+
                     System.out.println("from - strict search: updating to");
                 }
             } else {
                 System.out.println("from - normal search");
-                updateComboBoxToValues();
-                updateComboBoxTimeValues();
+                updateComboBoxToValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                        comboBoxTime.getSelectionModel().getSelectedItem());
+                updateComboBoxTimeValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                        comboBoxTo.getSelectionModel().getSelectedItem());
             }
         }
     }
@@ -174,17 +194,22 @@ public class RouteSearchFilter_Controller implements Initializable{
         if (canFireNow()) {
             if (isStrictSearch) {
                 if (tryEnableComboBoxTime()) {
-                    updateComboBoxTimeValues();
+                    updateComboBoxTimeValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                            comboBoxTo.getSelectionModel().getSelectedItem());
                     // From & To are selected -> update comboBox Time values
                     System.out.println("to - strict search: enable time");
                 } else {
                     // From is not selected -> update comboBox From values
+                    updateComboBoxFromValues(comboBoxTo.getSelectionModel().getSelectedItem(), null);
+
                     System.out.println("time - strict search: updating from");
                 }
             } else {
                 System.out.println("to - normal search");
-                updateComboBoxFromValues();
-                updateComboBoxTimeValues();
+                updateComboBoxFromValues(comboBoxTo.getSelectionModel().getSelectedItem(),
+                                        comboBoxTime.getSelectionModel().getSelectedItem());
+                updateComboBoxTimeValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                        comboBoxTo.getSelectionModel().getSelectedItem());
             }
         }
     }
@@ -197,8 +222,10 @@ public class RouteSearchFilter_Controller implements Initializable{
             }
             else {
                 System.out.println("time - normal search");
-                updateComboBoxToValues();
-                updateComboBoxFromValues();
+                updateComboBoxToValues(comboBoxFrom.getSelectionModel().getSelectedItem(),
+                                    comboBoxTime.getSelectionModel().getSelectedItem());
+                updateComboBoxFromValues(comboBoxTo.getSelectionModel().getSelectedItem(),
+                                    comboBoxTime.getSelectionModel().getSelectedItem());
             }
         }
     }
