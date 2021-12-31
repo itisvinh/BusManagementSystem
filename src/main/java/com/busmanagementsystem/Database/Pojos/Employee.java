@@ -2,6 +2,8 @@ package com.busmanagementsystem.Database.Pojos;
 
 import java.time.LocalDateTime;
 
+import static com.busmanagementsystem.Database.Services.Utilities.concatAll;
+
 public class Employee {
     private String employeeID;
     private String lastName;
@@ -88,5 +90,9 @@ public class Employee {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String toString() {
+        return concatAll("[ ID: ", employeeID, " ] ", " [ Name: ", firstName, " ", lastName , " ] ");
     }
 }

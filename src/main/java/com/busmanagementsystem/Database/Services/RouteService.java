@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PrimitiveIterator;
 
 import static com.busmanagementsystem.Database.Services.Utilities.concatAll;
 import static com.busmanagementsystem.Database.Services.Utilities.sqlString;
@@ -122,7 +123,7 @@ public class RouteService {
     }
 
     // [filters] strictly follows the "[StartingLocation]#[Destination]#[DepartureTime]" format
-    public void loadRoutes(TableView tableView, String filters) {
+    public void loadRoutes(TableView tableView, String filters){
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -166,8 +167,6 @@ public class RouteService {
         }
     }
 
-
-
     public void getStartingLocations(ComboBox comboBox, String destination, String departureTime) {
         String default_SQL = "select distinct StartingLocation from Schedules";
 
@@ -209,5 +208,129 @@ public class RouteService {
             default_SQL += concatAll(" where Destination=", sqlString(destination));
 
         populateComboBox(comboBox, default_SQL);
+    }
+
+    public int[] getStatistics() {
+        int[] stats = new int[] { 0, 0, 0};
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.createStatement();
+            String sql_count = "select COUNT(ScheduleID) from schedules ";
+
+            resultSet = statement.executeQuery(sql_count);
+            if (resultSet.next())
+                stats[0] = resultSet.getInt(1);
+            resultSet.close();
+
+            resultSet = statement.executeQuery(sql_count + "where DepartureTime <= CONVERT(time, GETDATE())");
+            if (resultSet.next())
+                stats[1] = resultSet.getInt(1);
+
+            stats[2] = stats[0] - stats[1];
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return stats;
+    }
+
+    private String nextScheduleID() {
+        int[] stats = getStatistics();
+        String scheduleID = "S";
+        if (stats[0] < 10)
+            scheduleID += "0";
+        scheduleID += String.valueOf(stats[0] + 1);
+        return scheduleID;
+    }
+
+    public int addNewSchedule(Schedule schedule) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affectedRows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("insert into Schedules" +
+                    " values (?, ?, ?, ?, ?, ?, ?)");
+
+            statement.setString(1, nextScheduleID());
+            statement.setString(2, schedule.getBusID());
+            statement.setString(3, schedule.getDriverID());
+            statement.setString(4, schedule.getStartingLocation());
+            statement.setString(5, schedule.getDestination());
+            statement.setTime(6, schedule.getDepartureTime());
+            statement.setFloat(7, schedule.getPrice());
+
+            affectedRows = statement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affectedRows;
+    }
+
+    public int updateSchedule(Schedule schedule) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affectedRows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            String sql = concatAll("update Schedules ",
+                                        " set BusID = ?, DriverID = ?, StartingLocation = ?, ",
+                                        "Destination = ?, DepartureTime = ?, Price = ? ",
+                                        " where ScheduleID = ?");
+            statement = conn.prepareStatement(sql);
+
+            statement.setString(2, schedule.getBusID());
+            statement.setString(3, schedule.getDriverID());
+            statement.setString(4, schedule.getStartingLocation());
+            statement.setString(5, schedule.getDestination());
+            statement.setTime(6, schedule.getDepartureTime());
+            statement.setFloat(7, schedule.getPrice());
+
+            affectedRows = statement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affectedRows;
+    }
+
+    public int deleteSchedule(String scheduleID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affectedRows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("delete from Schedules where ScheduleID = ?");
+            statement.setString(1, scheduleID);
+
+            affectedRows = statement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affectedRows;
     }
 }

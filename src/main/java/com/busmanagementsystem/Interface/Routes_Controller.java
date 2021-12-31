@@ -10,9 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,14 +24,24 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.busmanagementsystem.Database.Services.Utilities.prepareNotification;
+
 
 public class Routes_Controller extends Tickets_Routes_Base implements Initializable{
     RouteService routeService = new RouteService();
+    @FXML
+    public Label awaitingRoutes_label;
+    @FXML
+    public Label allRoutes_label;
+    @FXML
+    public Label activeRoutes_label;
     @FXML
     private Button addRoute;
     @FXML
@@ -38,6 +50,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
     private Button editRoute;
     @FXML
     private TableView<Schedule> routesTableView;
+    private String title = "Route Service";
 
 
     private ObservableList<Emp> list = FXCollections.observableArrayList();
@@ -52,7 +65,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
         if (Communicator.startedAsAdmin == false) {
             addRoute.setDisable(true);
@@ -70,8 +83,8 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
 
         list.add(new Emp("kwdnf", 24));
         */
-
         routeService.loadRoutes(routesTableView, "##");
+        updateStatistics();
     }
 
     @FXML
@@ -93,9 +106,17 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         System.out.println("routes - changed: " + routesSearchFilterQuery.getValue());
     }
 
-    private void startEditorStage() throws Exception{
+    private int startEditorStage(Schedule schedule) throws Exception{
+        int[] affected_rows = new int[1];
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Util_Scenes/RouteEditor_Scene.fxml"));
         Parent parent = fxmlLoader.load();
+        RouteEditor_Controller controller = (RouteEditor_Controller) fxmlLoader.getController();
+        controller.setAffectedRowsCapturer(affected_rows);
+
+        if (schedule != null)
+            controller.launch(schedule);
+        else
+            controller.launch();
 
         Scene scene = new Scene(parent);
         scene.setFill(Color.TRANSPARENT);
@@ -103,20 +124,72 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
-        Communicator.primaryStage.getScene().getRoot().setEffect(new GaussianBlur(5));
+        //Communicator.primaryStage.getScene().getRoot().setEffect(new GaussianBlur(5));
         stage.showAndWait();
-        Communicator.primaryStage.getScene().getRoot().setEffect(null);
-
+        //Communicator.primaryStage.getScene().getRoot().setEffect(null);
+        return affected_rows[0];
     }
 
     public void onActionAddRoute(ActionEvent event) {
         try {
-            startEditorStage();
+            if (startEditorStage(null) > 0) {
+                updateStatistics();
+                routeService.loadRoutes(routesTableView, "##");
+                prepareNotification(title, "Added successfully").showInformation();
+            }
         } catch (Exception ex) {
-
+            System.out.println(ex);
         }
     }
-    public void djfkjab() {
 
+    public void onActionEditRoute(ActionEvent event) {
+        try {
+            Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
+            if (schedule != null) {
+                if (startEditorStage(null) > 0) {
+                    routeService.loadRoutes(routesTableView, "##");
+                    prepareNotification(title, "Edited successfully").showInformation();
+                }
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
+
+    // fix: update scheduleID for the whole table after deletion
+    @Deprecated
+    public void onActionRemoveRoute(ActionEvent event) {
+        String scheduleID = routesTableView.getSelectionModel().getSelectedItem().getScheduleID();
+
+        try {
+            int affectedRows = routeService.deleteSchedule(scheduleID);
+
+            if (affectedRows > 0) {
+                prepareNotification(title, "Removed successfully").showInformation();
+                updateStatistics();
+                routeService.loadRoutes(routesTableView, "##");
+            }
+            else
+                prepareNotification(title,"Failed to remove").showWarning();
+        } catch (Exception ex) {
+            System.out.println(ex);
+            prepareNotification(title,"Exception encountered").showError();
+        }
+    }
+
+
+    public void onMouseDoubleClickedTableView(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 2)
+            onActionEditRoute(null);
+    }
+
+    public void updateStatistics() {
+        int[] stats = routeService.getStatistics();
+        allRoutes_label.setText(String.valueOf(stats[0]));
+        awaitingRoutes_label.setText(String.valueOf(stats[2]));
+        activeRoutes_label.setText(String.valueOf(stats[1]));
+    }
+
+
 }

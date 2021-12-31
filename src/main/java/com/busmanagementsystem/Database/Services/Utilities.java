@@ -1,5 +1,9 @@
 package com.busmanagementsystem.Database.Services;
 
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+
 public class Utilities {
     private Utilities() {
     }
@@ -14,5 +18,15 @@ public class Utilities {
     }
     public static String sqlString(Object object) {
         return concatAll("'", object.toString().trim(), "'");
+    }
+
+    public static Notifications prepareNotification(String title, String content) {
+        Notifications notifications = Notifications.create();
+        notifications.text(content)
+                .title("Route Service")
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .darkStyle();
+        return  notifications;
     }
 }
