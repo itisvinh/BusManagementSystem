@@ -65,18 +65,18 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" />
-                  <SearchableComboBox maxHeight="-Infinity" prefHeight="32.0" prefWidth="383.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <SearchableComboBox maxHeight="-Infinity" prefHeight="32.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="routeID" maxHeight="-Infinity" prefHeight="32.0" promptText="Route ID will be assigned automatically" styleClass="searchBar" GridPane.columnIndex="1" />
+                  <SearchableComboBox fx:id="busID" maxHeight="-Infinity" prefHeight="32.0" prefWidth="383.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <SearchableComboBox fx:id="driverID" maxHeight="-Infinity" prefHeight="32.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="startingLocation" maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="destination" maxHeight="-Infinity" prefHeight="32.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="departureTime" maxHeight="-Infinity" prefHeight="32.0" promptText="Hours : Minutes : Seconds" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="price" maxHeight="-Infinity" prefHeight="32.0" promptText="In vietnam dong" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="EDITOR MODE IS ON" />
-            <Button layoutX="392.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="68.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="CANCEL" />
-            <Button layoutX="480.0" layoutY="429.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="68.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="ADD" />
+            <Button fx:id="editorModeStatus" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="EDITOR MODE IS ON" />
+            <Button fx:id="cancelButton" layoutX="392.0" layoutY="429.0" mnemonicParsing="false" onAction="#onActionCancel" prefHeight="30.0" prefWidth="68.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="CANCEL" />
+            <Button fx:id="addButton" layoutX="480.0" layoutY="429.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="30.0" prefWidth="68.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="ADD" />
          </children>
          <effect>
             <GaussianBlur radius="0.0" />

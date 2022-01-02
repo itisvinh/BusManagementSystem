@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <!-- button: onAction="#search" onMouseEntered="#functionButtonMouseEnter" onMouseExited="#functionButtonMouseExit"-->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="747.0" stylesheets="@../CSS/Routes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.busmanagementsystem.Interface.Tickets_Controller">
    <children>
-      <Button fx:id="searchRoutes1" layoutX="467.0" layoutY="315.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text=" SEARCH FOR A TICKET" AnchorPane.rightAnchor="82.4" AnchorPane.topAnchor="315.0">
-         <graphic>
-            <FontIcon iconLiteral="fas-search" iconSize="15" />
-         </graphic>
-      </Button>
-      <TabPane fx:id="tabPane" layoutX="48.0" layoutY="48.0" prefHeight="439.0" prefWidth="373.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="93.80000000000001" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="325.4" AnchorPane.topAnchor="48.0">
+      <TabPane fx:id="tabPane" layoutX="34.0" layoutY="32.0" prefHeight="438.0" prefWidth="374.0" stylesheets="@../CSS/Routes.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="111.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="32.0">
         <tabs>
           <Tab text="FLOOR 1">
             <content>
@@ -321,40 +317,87 @@
           </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane fx:id="ticketFunctionalButtonArea" layoutX="451.0" layoutY="60.0" prefHeight="242.0" prefWidth="230.0" styleClass="ticket-function-button-background" stylesheets="@../CSS/Routes.css" AnchorPane.rightAnchor="65.6" AnchorPane.topAnchor="60.0">
+      <AnchorPane layoutX="425.6" layoutY="26.0" prefHeight="150.0" prefWidth="282.0" styleClass="ticket-function-button-background" stylesheets="@../CSS/Routes.css" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="26.0">
          <children>
-            <SearchableComboBox fx:id="comboBoxBus" layoutX="12.0" layoutY="57.0" prefHeight="34.0" prefWidth="198.0" promptText="SELECT A BUS" styleClass="searchable-combo-box" stylesheets="@../CSS/Routes.css" />
-            <Button fx:id="searchRoutes" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchForRoutes" prefHeight="34.0" prefWidth="198.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text=" SEARCH FOR ROUTES">
+            <ComboBox fx:id="comboBoxBus" layoutX="28.0" layoutY="57.0" onAction="#onActionSelectBus" prefHeight="34.0" prefWidth="198.0" promptText="SELECT A BUS" styleClass="searchable-combo-box" stylesheets="@../CSS/Routes.css" />
+            <Button fx:id="searchRoutes" layoutX="30.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchForRoutes" prefHeight="34.0" prefWidth="198.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text=" SEARCH FOR ROUTES">
                <graphic>
                   <FontIcon iconLiteral="fas-search" iconSize="15" />
                </graphic>
             </Button>
-            <Button fx:id="bookTicket" layoutX="14.0" layoutY="101.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="BOOK TICKET">
+            <Button fx:id="searchTickets" layoutX="30.0" layoutY="101.0" mnemonicParsing="false" onAction="#onActionSearchTickets" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="SEARCH FOR TICKETS">
+               <graphic>
+                  <FontIcon iconLiteral="fas-search" iconSize="15" />
+               </graphic>
+            </Button>
+            <Label alignment="CENTER" layoutX="238.0" layoutY="22.0" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="1" />
+            <Label alignment="CENTER" layoutX="238.0" layoutY="65.0" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="2" />
+            <Label alignment="CENTER" layoutX="238.0" layoutY="108.0" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="3" />
+         </children>
+      </AnchorPane>
+      <GridPane layoutX="67.0" layoutY="492.0" prefHeight="60.0" prefWidth="140.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="34.20001220703125" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="105.39998779296874" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="26.400048828125" minHeight="17.400048828125" prefHeight="20.80001220703125" />
+          <RowConstraints maxHeight="31.20001220703125" minHeight="10.0" prefHeight="20.79998779296875" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.60001220703125" minHeight="10.0" prefHeight="18.19998779296875" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: black; -fx-background-radius: 10;" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: rgb(144, 139, 47); -fx-background-radius: 10;" GridPane.rowIndex="1" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: rgb(35, 117, 27); -fx-background-radius: 10;" GridPane.rowIndex="2" />
+            <Label text="EMPTY" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+            <Label text="BOOKED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+            <Label text="PURCHASED" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <Button fx:id="clearSelection" layoutX="451.0" layoutY="435.0" mnemonicParsing="false" onAction="#onActionClearSelection" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CLEAR SELECTION">
+         <graphic>
+            <FontIcon iconLiteral="fas-search" iconSize="15" />
+         </graphic>
+      </Button>
+      <Button fx:id="viewInfo" layoutX="451.0" layoutY="395.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="VIEW INFO">
+         <graphic>
+            <FontIcon iconLiteral="fas-sync-alt" iconSize="15" />
+         </graphic>
+      </Button>
+      <AnchorPane fx:id="ticketFunctionalButtonArea" layoutX="437.0" layoutY="194.0" prefHeight="193.0" prefWidth="226.0" styleClass="ticket-function-button-background">
+         <children>
+            <Button fx:id="bookTicket1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionBookTicket" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="BOOK TICKET">
                <graphic>
                   <FontIcon iconLiteral="fas-ticket-alt" iconSize="15" />
                </graphic>
             </Button>
-            <Button fx:id="declineTicket" layoutX="14.0" layoutY="145.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="DECLINE TICKET">
+            <Button fx:id="declineTicket" layoutX="14.0" layoutY="144.0" mnemonicParsing="false" onAction="#onActionDeclineTicket" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="DECLINE TICKET">
                <graphic>
                   <FontIcon iconLiteral="fas-ban" iconSize="15" />
                </graphic>
             </Button>
-            <Button fx:id="changeTicket" layoutX="12.0" layoutY="193.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CHANGE TICKET">
+            <Button fx:id="changeTicket" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CHANGE TICKET">
                <graphic>
                   <FontIcon iconLiteral="fas-sync-alt" iconSize="15" />
                </graphic>
             </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="changeTicketConfirmationPane" layoutX="199.0" layoutY="487.0" prefHeight="59.0" prefWidth="374.0">
-         <children>
-            <Label layoutX="32.0" layoutY="43.0" text="PROCEED TO CHANGE ?">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Button fx:id="searchRoutes132" layoutX="206.0" layoutY="37.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CONFIRM" />
-            <Button fx:id="searchRoutes131" layoutX="294.0" layoutY="37.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CANCEL" />
+            <Button fx:id="purchaseTicket" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#onActionPurchaseTicket" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="PURCHASE TICKET">
+               <graphic>
+                  <FontIcon iconLiteral="fas-sync-alt" iconSize="15" />
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </children>

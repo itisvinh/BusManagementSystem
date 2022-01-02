@@ -43,7 +43,6 @@ public class RouteSearchFilter_Controller implements Initializable{
     // if the value is true: all the 3 comboBoxes have to be selected to search
     private boolean isStrictSearch = false;
 
-
     public void setStrictSearch(boolean strictSearch) {
         isStrictSearch = strictSearch;
 
@@ -58,7 +57,6 @@ public class RouteSearchFilter_Controller implements Initializable{
         this.returnSearchQuery = returnSearchQuery;
     }
 
-
     public void setCancelButtonVisibility(boolean isVisible) {
         this.cancel.setVisible(isVisible);
     }
@@ -71,6 +69,7 @@ public class RouteSearchFilter_Controller implements Initializable{
         return filter;
     }
     public void onActionCancel(ActionEvent actionEvent) {
+        returnSearchQuery.append("##");
         ((Stage)this.backgroundPane.getScene().getWindow()).close();
     }
 
