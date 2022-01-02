@@ -24,7 +24,7 @@ public class Utilities {
         Notifications notifications = Notifications.create();
         notifications.text(content)
                 .title("Route Service")
-                .hideAfter(Duration.seconds(4))
+                .hideAfter(Duration.seconds(5))
                 .position(Pos.BOTTOM_RIGHT)
                 .darkStyle();
         return  notifications;

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<AnchorPane prefHeight="447.0" prefWidth="700.0" stylesheets="@../../CSS/Routes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.busmanagementsystem.Interface.CustomerSelector_Controller">
+    <children>
+        <SearchableComboBox fx:id="comboBoxCustomer" layoutX="220.0" layoutY="29.0" prefHeight="30.0" prefWidth="389.0" />
+        <AnchorPane fx:id="infoArea" layoutX="32.0" layoutY="96.0" prefHeight="286.0" prefWidth="635.0" style="-fx-background-color: rgba(235, 235, 235, 1); -fx-background-radius: 25;">
+            <children>
+                <GridPane layoutX="62.0" layoutY="26.0" prefHeight="227.0" prefWidth="511.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.199951171875" minWidth="10.0" prefWidth="123.19996337890626" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="407.2" minWidth="10.0" prefWidth="388.80003662109374" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="First Name:" />
+                        <TextField fx:id="firstName" prefHeight="30.0" styleClass="searchBar" GridPane.columnIndex="1" />
+                        <Label text="Last Name:" GridPane.rowIndex="1" />
+                        <Label text="Gender:" GridPane.rowIndex="2" />
+                        <Label text="Phone Number:" GridPane.rowIndex="3" />
+                        <TextField fx:id="lastName" prefHeight="30.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="gender" prefHeight="30.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="phoneNumber" prefHeight="30.0" styleClass="searchBar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+            </children>
+        </AnchorPane>
+        <RadioButton fx:id="radioButtonChoose" layoutX="34.0" layoutY="34.0" mnemonicParsing="false" onAction="#onActionRadioButton" text="Choose an existing customer:">
+            <toggleGroup>
+                <ToggleGroup fx:id="option" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="radioButtonAdd" layoutX="35.0" layoutY="65.0" mnemonicParsing="false" onAction="#onActionRadioButton" selected="true" text="Add new customer:" toggleGroup="$option" />
+        <Button layoutX="449.0" layoutY="399.0" mnemonicParsing="false" onAction="#onActionCancel" prefHeight="30.0" prefWidth="75.0" styleClass="functionButton" text="CANCEL" />
+        <Button layoutX="534.0" layoutY="398.0" mnemonicParsing="false" onAction="#onActionSelect" prefHeight="30.0" prefWidth="75.0" styleClass="functionButton" text="SELECT" />
+    </children>
+</AnchorPane>

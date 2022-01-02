@@ -72,17 +72,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
             removeRoute.setDisable(true);
             editRoute.setDisable(true);
         }
-        /*
-        name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-        age_col.setCellValueFactory(new PropertyValueFactory<>("age"));
 
-        list.add(new Emp("kjdsbf", 23));
-        list.add(new Emp("bfsds", 32));
-
-        routesTableView.setItems(list);
-
-        list.add(new Emp("kwdnf", 24));
-        */
         routeService.loadRoutes(routesTableView, "##");
         updateStatistics();
     }
@@ -146,7 +136,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         try {
             Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
             if (schedule != null) {
-                if (startEditorStage(null) > 0) {
+                if (startEditorStage(schedule) > 0) {
                     routeService.loadRoutes(routesTableView, "##");
                     prepareNotification(title, "Edited successfully").showInformation();
                 }

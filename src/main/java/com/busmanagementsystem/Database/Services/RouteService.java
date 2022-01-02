@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PrimitiveIterator;
@@ -332,5 +333,27 @@ public class RouteService {
             try { resultSet.close(); } catch (Exception e2) {}
         }
         return affectedRows;
+    }
+
+    public Time getDepartureTimeOf(String scheduleID) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Time time = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select DepartureTime from Schedules where ScheduleID = " + sqlString(scheduleID));
+            if (resultSet.next())
+                time = resultSet.getTime("DepartureTime");
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return time;
     }
 }
