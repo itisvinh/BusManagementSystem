@@ -31,4 +31,25 @@ public class Ticket_Seat_Service {
         }
         return affected_rows;
     }
+
+    public int deleteTicket_Seat(String ticketID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affected_rows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("delete from Tickets_Seats where TicketID = ?");
+            statement.setString(1, ticketID);
+
+            affected_rows = statement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affected_rows;
+    }
 }

@@ -2,6 +2,7 @@ package com.busmanagementsystem.Database.Services;
 
 import com.busmanagementsystem.Database.Configs.DBConnection;
 import com.busmanagementsystem.Database.Pojos.Schedule;
+import com.busmanagementsystem.Database.Pojos.Ticket;
 import com.busmanagementsystem.Interface.Routes_Controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -14,15 +15,15 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import java.sql.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.PrimitiveIterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.busmanagementsystem.Database.Services.Utilities.concatAll;
 import static com.busmanagementsystem.Database.Services.Utilities.sqlString;
 
 public class RouteService {
     private boolean ColumnsAdded = false;
+    private TicketService ticketService = new TicketService();
 
     //public static ObservableList<String>
     private void loadColumns(TableView tableView, ResultSet resultSet) throws SQLException {
@@ -242,14 +243,14 @@ public class RouteService {
         return stats;
     }
 
-    private String nextScheduleID() {
-        int[] stats = getStatistics();
-        String scheduleID = "S";
-        if (stats[0] < 10)
-            scheduleID += "0";
-        scheduleID += String.valueOf(stats[0] + 1);
-        return scheduleID;
-    }
+//    private String nextScheduleID() {
+//        int[] stats = getStatistics();
+//        String scheduleID = "S";
+//        if (stats[0] < 10)
+//            scheduleID += "0";
+//        scheduleID += String.valueOf(stats[0] + 1);
+//        return scheduleID;
+//    }
 
     public int addNewSchedule(Schedule schedule) {
         PreparedStatement statement = null;
@@ -261,7 +262,7 @@ public class RouteService {
             statement = conn.prepareStatement("insert into Schedules" +
                     " values (?, ?, ?, ?, ?, ?, ?)");
 
-            statement.setString(1, nextScheduleID());
+            statement.setString(1, createNextScheduleID());
             statement.setString(2, schedule.getBusID());
             statement.setString(3, schedule.getDriverID());
             statement.setString(4, schedule.getStartingLocation());
@@ -313,17 +314,37 @@ public class RouteService {
         return affectedRows;
     }
 
-    public int deleteSchedule(String scheduleID) {
+    public boolean deleteSchedule(String scheduleID) {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        int affectedRows = 0;
 
         try {
             Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select TicketID from Tickets where ScheduleID = ?");
+            statement.setString(1, scheduleID);
+            resultSet = statement.executeQuery();
+
+            // get a list of ticketIDs having @scheduleID = scheduleID
+            List<Ticket> tickets = new LinkedList<>();
+            while (resultSet.next()) {
+                Ticket t = new Ticket();
+                t.setTicketID(resultSet.getString("TicketID"));
+                tickets.add(t);
+            }
+            System.out.println("list: " + tickets.size());
+
+            // remove the tickets having the ticketIDs accordingly to the list
+            int af_rows = 0;
+            if (tickets.size() > 0) {
+                for (var ticket : tickets)
+                    af_rows += ticketService.removeTicket(ticket);
+            }
+
+            statement.close();
             statement = conn.prepareStatement("delete from Schedules where ScheduleID = ?");
             statement.setString(1, scheduleID);
-
-            affectedRows = statement.executeUpdate();
+            if (statement.executeUpdate() > 0)
+                return true;
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -332,7 +353,7 @@ public class RouteService {
             try { statement.close(); } catch (Exception e1) {}
             try { resultSet.close(); } catch (Exception e2) {}
         }
-        return affectedRows;
+        return false;
     }
 
     public Time getDepartureTimeOf(String scheduleID) {
@@ -355,5 +376,45 @@ public class RouteService {
             try { resultSet.close(); } catch (Exception e2) {}
         }
         return time;
+    }
+
+    public String createNextScheduleID() {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String customerID = "";
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select ScheduleID from Schedules");
+
+            var scheduleIDs_str = new ArrayList<String>();
+
+            while (resultSet.next())
+                scheduleIDs_str.add(resultSet.getString(1));
+
+            if (scheduleIDs_str.size() == 0)
+                return "S01";
+            else {
+
+                var scheduleIDs = scheduleIDs_str.stream()
+                        .map(i -> Integer.valueOf(i.substring(1)))
+                        .sorted()
+                        .collect(Collectors.toList());
+                System.out.println(scheduleIDs);
+
+                int number = scheduleIDs.get(scheduleIDs.size() - 1) + 1;
+                customerID += "S";
+                customerID += (number < 10) ? "0" + String.valueOf(number) : String.valueOf(number);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return customerID;
     }
 }

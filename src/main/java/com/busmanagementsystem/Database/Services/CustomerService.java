@@ -59,16 +59,20 @@ public class CustomerService {
             while (resultSet.next())
                 customerIDs_str.add(resultSet.getString(1));
 
-            var customerIDs = customerIDs_str.stream()
-                                                        .map(i -> Integer.valueOf(i.substring(1)))
-                                                        .sorted()
-                                                        .collect(Collectors.toList());
-            System.out.println(customerIDs);
+            if (customerIDs_str.size() == 0)
+                return "C01";
+            else {
 
-            int number = customerIDs.get(customerIDs.size() - 1) + 1;
-            customerID += "C";
-            customerID += (number < 10) ? "0" + String.valueOf(number) : String.valueOf(number);
+                var customerIDs = customerIDs_str.stream()
+                        .map(i -> Integer.valueOf(i.substring(1)))
+                        .sorted()
+                        .collect(Collectors.toList());
+                System.out.println(customerIDs);
 
+                int number = customerIDs.get(customerIDs.size() - 1) + 1;
+                customerID += "C";
+                customerID += (number < 10) ? "0" + String.valueOf(number) : String.valueOf(number);
+            }
 
         } catch (Exception ex) {
             System.out.println(ex);

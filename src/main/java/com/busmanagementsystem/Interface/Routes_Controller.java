@@ -153,9 +153,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         String scheduleID = routesTableView.getSelectionModel().getSelectedItem().getScheduleID();
 
         try {
-            int affectedRows = routeService.deleteSchedule(scheduleID);
-
-            if (affectedRows > 0) {
+            if (routeService.deleteSchedule(scheduleID)) {
                 prepareNotification(title, "Removed successfully").showInformation();
                 updateStatistics();
                 routeService.loadRoutes(routesTableView, "##");
