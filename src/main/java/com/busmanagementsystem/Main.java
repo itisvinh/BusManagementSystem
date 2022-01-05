@@ -24,7 +24,7 @@ public class Main extends Application {
         Communicator.currentScene = scene;
     }
 
-    public static void main(String[] args) {
+    public static void entry(String[] args) {
         launch();
     }
 }
