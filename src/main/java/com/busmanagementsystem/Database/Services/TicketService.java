@@ -1,10 +1,7 @@
 package com.busmanagementsystem.Database.Services;
 
 import com.busmanagementsystem.Database.Configs.DBConnection;
-import com.busmanagementsystem.Database.Pojos.Customer;
-import com.busmanagementsystem.Database.Pojos.ExtTicket;
-import com.busmanagementsystem.Database.Pojos.Schedule;
-import com.busmanagementsystem.Database.Pojos.Ticket;
+import com.busmanagementsystem.Database.Pojos.*;
 import com.busmanagementsystem.Interface.Tickets_Controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,12 +14,15 @@ import javafx.util.Callback;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.busmanagementsystem.Database.Services.Utilities.sqlString;
 
 public class TicketService {
     private boolean ColumnsAdded = false;
+    private Ticket_Seat_Service ticketSeatService = new Ticket_Seat_Service();
 
     public String createNextTicketID() {
         Statement statement = null;
@@ -39,20 +39,24 @@ public class TicketService {
             while (resultSet.next())
                 ticketIDs_str.add(resultSet.getString(1));
 
-            var ticketIDs = ticketIDs_str.stream()
-                    .map(i -> Integer.valueOf(i.substring(1)))
-                    .sorted()
-                    .collect(Collectors.toList());
-            int number = ticketIDs.get(ticketIDs.size() - 1) + 1;
-            ticketID += "T";
+            if (ticketIDs_str.size() == 0)
+                return "T001";
+            else {
 
-            if (number < 10)
-                ticketID += "00" + String.valueOf(number);
-            else if (number < 100)
-                ticketID += "0" + String.valueOf(number);
-            else
-                ticketID += String.valueOf(number);
+                var ticketIDs = ticketIDs_str.stream()
+                        .map(i -> Integer.valueOf(i.substring(1)))
+                        .sorted()
+                        .collect(Collectors.toList());
+                int number = ticketIDs.get(ticketIDs.size() - 1) + 1;
+                ticketID += "T";
 
+                if (number < 10)
+                    ticketID += "00" + String.valueOf(number);
+                else if (number < 100)
+                    ticketID += "0" + String.valueOf(number);
+                else
+                    ticketID += String.valueOf(number);
+            }
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -172,9 +176,103 @@ public class TicketService {
     }
 
     // editTicketBookingStatus
+    public int editTicketBookingStatus(Ticket ticket) {
+        Statement statement = null;
+        int affected_rows = 0;
 
-    public int removeTicket() {
-        //
-        return 1;
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.createStatement();
+            return statement.executeUpdate("update Tickets" +
+                    " set BookingStatus = " + sqlString(ticket.getBookingStatus()) +
+                    " where TicketID = " + sqlString(ticket.getTicketID()));
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+        }
+        return affected_rows;
+    }
+
+    public int removeTicket(Ticket ticket) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affected_rows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            affected_rows += ticketSeatService.deleteTicket_Seat(ticket.getTicketID());
+
+            if (affected_rows > 0) {
+                statement = conn.prepareStatement("delete from Tickets where TicketID = ");
+                statement.setString(1, ticket.getTicketID());
+                int af_rows = statement.executeUpdate();
+                if (af_rows > 0)
+                    affected_rows += af_rows;
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affected_rows;
+    }
+
+    public int updateSeatsOfTicket(List<ExtSeat> old_seats, List<ExtSeat> new_seats) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affected_rows = 0;
+
+        try {
+            if (old_seats.size() == new_seats.size() && old_seats.size() > 0) {
+                String ticketID = old_seats.get(0).getTicketID();
+                Connection conn = DBConnection.getConn();
+                Iterator<ExtSeat> new_iter = new_seats.iterator();
+
+                for (var seat : old_seats) {
+                    statement = conn.prepareStatement("update Tickets_Seats set SeatID = ? where TicketID = ? and SeatID = ?");
+                    statement.setString(2, ticketID);
+                    statement.setString(3, seat.getSeatID());
+                    statement.setString(1, new_iter.next().getSeatID());
+                    affected_rows += statement.executeUpdate();
+                    statement.close();
+                }
+            } else
+                throw new NullPointerException("The 2 input list have to have the same size");
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            affected_rows = -1;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affected_rows;
+    }
+
+    public int updateScheduleOfTicket(String ticketID, String scheduleID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int affected_rows = 0;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("update Tickets set ScheduleID = ? where TicketID = ?");
+            statement.setString(1, scheduleID);
+            statement.setString(2, ticketID);
+            affected_rows = statement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            affected_rows = -1;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return affected_rows;
     }
 }
+
