@@ -19,6 +19,7 @@ import org.controlsfx.control.ToggleSwitch;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 
 public class LogIn_Controller implements Initializable {
@@ -106,15 +107,15 @@ public class LogIn_Controller implements Initializable {
         notifications.showInformation();
     }
 
-    private void startMainWorkingArea(String role) {
-        try {
+    private void startMainWorkingArea(String role) throws Exception {
+//        try {
             FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MainWorkingArea_Scene.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Communicator.primaryStage.setScene(scene);
             showNotification("Logged In as " + role);
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
     }
 
     private boolean validate() {
@@ -124,7 +125,7 @@ public class LogIn_Controller implements Initializable {
         return true;
     }
 
-    public void signInButtonMouseClick(MouseEvent mouseEvent) {
+    public void signInButtonMouseClick(MouseEvent mouseEvent) throws Exception {
         if (validate()) {
             switch (CredentialService.authenticate(username.getText(), password.getText())) {
                 case "admin":

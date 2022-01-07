@@ -82,4 +82,17 @@ public class Schedule {
     public void setDriverID(String driverID) {
         this.driverID = driverID;
     }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "scheduleID='" + scheduleID + '\'' +
+                ", busID='" + busID + '\'' +
+                ", driverID='" + driverID + '\'' +
+                ", startingLocation='" + startingLocation + '\'' +
+                ", destination='" + destination + '\'' +
+                ", departureTime=" + departureTime +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -202,15 +202,14 @@ public class TicketService {
 
         try {
             Connection conn = DBConnection.getConn();
-            affected_rows += ticketSeatService.deleteTicket_Seat(ticket.getTicketID());
+            ticketSeatService.deleteTicket_Seat(ticket.getTicketID());
 
-            if (affected_rows > 0) {
-                statement = conn.prepareStatement("delete from Tickets where TicketID = ");
-                statement.setString(1, ticket.getTicketID());
-                int af_rows = statement.executeUpdate();
-                if (af_rows > 0)
-                    affected_rows += af_rows;
-            }
+            statement = conn.prepareStatement("delete from Tickets where TicketID = ?");
+            statement.setString(1, ticket.getTicketID());
+            int af_rows = statement.executeUpdate();
+            if (af_rows > 0)
+                affected_rows += af_rows;
+
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -274,5 +273,38 @@ public class TicketService {
         }
         return affected_rows;
     }
+
+    public ObservableList<Ticket> getTickets(String scheduleID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Tickets where ScheduleID = ?");
+            statement.setString(1, scheduleID);
+            resultSet = statement.executeQuery();
+
+            ObservableList<Ticket> tickets = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                Ticket ticket = new Ticket();
+                ticket.setTicketID(resultSet.getString("TicketID"));
+                ticket.setScheduleID(resultSet.getString("ScheduleID"));
+                ticket.setCustomerID(resultSet.getString("CustomerID"));
+                ticket.setBookingStatus(resultSet.getString("BookingStatus"));
+                tickets.add(ticket);
+            }
+
+            if (tickets.size() > 0)
+                return tickets;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
+
 }
 

@@ -339,12 +339,13 @@ public class RouteService {
                 for (var ticket : tickets)
                     af_rows += ticketService.removeTicket(ticket);
             }
-
+            System.out.println("removed tickets and seats");
             statement.close();
             statement = conn.prepareStatement("delete from Schedules where ScheduleID = ?");
             statement.setString(1, scheduleID);
             if (statement.executeUpdate() > 0)
                 return true;
+            System.out.println("failed");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -417,4 +418,68 @@ public class RouteService {
         }
         return customerID;
     }
+
+    public ObservableList<String> getScheduleIDsBefore(Time time) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select ScheduleID from Schedules where DepartureTime < ?");
+            statement.setString(1, time.toString());
+            resultSet = statement.executeQuery();
+
+            ObservableList<String> scheduleIDs = FXCollections.observableArrayList();
+            while (resultSet.next())
+                scheduleIDs.add(resultSet.getString("ScheduleID"));
+
+            if (scheduleIDs.size() > 0)
+                return scheduleIDs;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
+
+    public Schedule getUpcomingSchedule() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Schedules where DepartureTime >= ? order by DepartureTime");
+            statement.setString(1, LocalTime.now().toString());
+            resultSet = statement.executeQuery();
+
+            Schedule schedule = null;
+            if (resultSet.next()) {
+                schedule = new Schedule();
+                schedule.setScheduleID(resultSet.getString("ScheduleID"));
+                schedule.setBusID(resultSet.getString("BusID"));
+                schedule.setDriverID(resultSet.getString("DriverID"));
+                schedule.setStartingLocation(resultSet.getString("StartingLocation"));
+                schedule.setDestination(resultSet.getString("Destination"));
+                schedule.setDepartureTime(resultSet.getTime("DepartureTime"));
+                schedule.setPrice(resultSet.getFloat("Price"));
+            }
+
+            if (schedule != null)
+                return schedule;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
+
+
 }

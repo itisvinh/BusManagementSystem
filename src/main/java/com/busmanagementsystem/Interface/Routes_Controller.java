@@ -126,6 +126,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
                 updateStatistics();
                 routeService.loadRoutes(routesTableView, "##");
                 prepareNotification(title, "Added successfully").showInformation();
+                Communicator.currentBackgroundWorker.restartWorker(null);
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -139,6 +140,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
                 if (startEditorStage(schedule) > 0) {
                     routeService.loadRoutes(routesTableView, "##");
                     prepareNotification(title, "Edited successfully").showInformation();
+                    Communicator.currentBackgroundWorker.restartWorker(null);
                 }
             }
 
@@ -150,16 +152,22 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
     // fix: update scheduleID for the whole table after deletion
     @Deprecated
     public void onActionRemoveRoute(ActionEvent event) {
-        String scheduleID = routesTableView.getSelectionModel().getSelectedItem().getScheduleID();
+        Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
 
         try {
-            if (routeService.deleteSchedule(scheduleID)) {
-                prepareNotification(title, "Removed successfully").showInformation();
-                updateStatistics();
-                routeService.loadRoutes(routesTableView, "##");
-            }
-            else
-                prepareNotification(title,"Failed to remove").showWarning();
+            if (schedule != null) {
+                String scheduleID = schedule.getScheduleID();
+                System.out.println(scheduleID);
+                if (routeService.deleteSchedule(scheduleID)) {
+                    prepareNotification(title, "Removed successfully").showInformation();
+                    updateStatistics();
+                    routeService.loadRoutes(routesTableView, "##");
+                    Communicator.currentBackgroundWorker.restartWorker(null);
+                } else
+                    prepareNotification(title, "Failed to remove").showWarning();
+            } else
+            prepareNotification(title, "Select a route to remove").showInformation();
+
         } catch (Exception ex) {
             System.out.println(ex);
             prepareNotification(title,"Exception encountered").showError();

@@ -1,5 +1,7 @@
 package com.busmanagementsystem;
 
+import com.busmanagementsystem.Background.BackgroundWorker;
+import com.busmanagementsystem.Interface.Tickets_Controller;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,4 +13,6 @@ public class Communicator {
     public static Stage primaryStage;
     public static Scene currentScene;
     public static boolean startedAsAdmin = true;
+    public static Tickets_Controller tickets_controller;
+    public static BackgroundWorker currentBackgroundWorker;
 }
