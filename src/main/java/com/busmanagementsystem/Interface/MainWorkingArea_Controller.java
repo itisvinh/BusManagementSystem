@@ -1,5 +1,6 @@
 package com.busmanagementsystem.Interface;
 
+import com.busmanagementsystem.Background.BackgroundWorker;
 import com.busmanagementsystem.Communicator;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWorkingArea_Controller implements Initializable {
+    private BackgroundWorker backgroundWorker;
     private double xOffset, yOffset;
     @FXML
     private Button exit, maximize, hide;
@@ -33,6 +35,7 @@ public class MainWorkingArea_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("initialized");
         homeButtonMouseClick(null);
+        backgroundWorker = BackgroundWorker.start();
     }
     // native method - apply fade transition to a node within [duration], change node's
     // opacity from [fromValue] to [toValue]
@@ -91,9 +94,12 @@ public class MainWorkingArea_Controller implements Initializable {
         mainMenuButtonHighlight((Button) mouseEvent.getSource());
         try {
             if (ticketsNode == null) {
-                ticketsNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Tickets_Scene.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Tickets_Scene.fxml"));
+                ticketsNode = (AnchorPane) fxmlLoader.load();
+                Communicator.tickets_controller = fxmlLoader.getController();
                 anchorChildFitParent(ticketsNode);
-            }// remove all currently added nodes from mainSceneArea
+            }
+            // remove all currently added nodes from mainSceneArea
             mainSceneArea.getChildren().clear();
             // add node to mainSceneArea
             mainSceneArea.getChildren().add(ticketsNode);

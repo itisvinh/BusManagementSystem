@@ -124,7 +124,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
     }
 
     // read all seats info from database into the seats list
-    private void updateSeats() {
+    public void updateSeats() {
         Bus bus = (Bus) comboBoxBus.getSelectionModel().getSelectedItem();
         System.out.println(currentScheduleID + " - " + currentBusID);
         if (bus != null) {
