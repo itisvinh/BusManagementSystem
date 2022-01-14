@@ -1,6 +1,7 @@
 package com.busmanagementsystem.Interface;
 
 import com.busmanagementsystem.Communicator;
+import com.busmanagementsystem.Database.Pojos.Employee;
 import com.busmanagementsystem.Database.Services.CredentialService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public class LogIn_Controller implements Initializable {
     private Pane controlsWrapper;
     @FXML
     private Label message;
+    @FXML
+    private Label lb_fullname;
 
     @FXML
     public void cancelButtonMouseClick(MouseEvent mouseEvent) {
@@ -126,12 +129,17 @@ public class LogIn_Controller implements Initializable {
 
     public void signInButtonMouseClick(MouseEvent mouseEvent) {
         if (validate()) {
-            switch (CredentialService.authenticate(username.getText(), password.getText())) {
+            StringBuilder stringBuilder = new StringBuilder("");
+            switch (CredentialService.authenticate(username.getText(), password.getText()), stringBuilder.append()) {
                 case "admin":
+                    String employeeID = stringBuilder.toString();
+                    Communicator.currentEmployeeID = employeeID;
                     Communicator.startedAsAdmin = true;
                     startMainWorkingArea("Administrator");
                     break;
                 case "seller":
+                    String employeeID = stringBuilder.toString();
+                    Communicator.currentEmployeeID = employeeID;
                     Communicator.startedAsAdmin = false;
                     startMainWorkingArea("Seller");
                     break;
@@ -150,4 +158,9 @@ public class LogIn_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         message.setVisible(false);
     }
+    Employee employee;
+    lb_fullname.setText(employee.getFirstName() + " " + employee.getLastName());
+    lb_birthday.setText(employee.getBirthDate());
+    lb_tel.setText(employee.getPhoneNumber());
+    lb_email.setText(employee.getEmail());
 }
