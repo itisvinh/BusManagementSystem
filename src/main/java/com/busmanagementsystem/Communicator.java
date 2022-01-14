@@ -1,5 +1,6 @@
 package com.busmanagementsystem;
 
+import com.busmanagementsystem.Database.Pojos.Employee;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,4 +12,5 @@ public class Communicator {
     public static Stage primaryStage;
     public static Scene currentScene;
     public static boolean startedAsAdmin = true;
+    public static String currentEmployeeID;
 }
