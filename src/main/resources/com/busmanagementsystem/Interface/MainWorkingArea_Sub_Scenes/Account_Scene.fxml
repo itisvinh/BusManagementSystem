@@ -10,7 +10,6 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="747.0" stylesheets="@../CSS/Account.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="avatarBackground" layoutX="87.0" layoutY="135.0" prefHeight="220.0" prefWidth="220.0">
@@ -68,5 +67,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Label fx:id="lb_fullname" layoutX="514.0" layoutY="186.0" prefHeight="18.0" prefWidth="130.0" />
+      <Label fx:id="lb_birthday" layoutX="514.0" layoutY="236.0" prefHeight="18.0" prefWidth="130.0" />
+      <Label fx:id="lb_tel" layoutX="514.0" layoutY="281.0" prefHeight="18.0" prefWidth="130.0" />
+      <Label fx:id="lb_email" layoutX="514.0" layoutY="323.0" prefHeight="18.0" prefWidth="130.0" />
    </children>
 </AnchorPane>
