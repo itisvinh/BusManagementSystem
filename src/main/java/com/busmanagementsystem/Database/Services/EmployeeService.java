@@ -37,8 +37,50 @@ public class EmployeeService {
             System.out.println(ex);
             //return null;
         } finally {
-            try { statement.close(); } catch (Exception e1) {}
-            try { resultSet.close(); } catch (Exception e2) {}
+            try {
+                statement.close();
+            } catch (Exception e1) {
+            }
+            try {
+                resultSet.close();
+            } catch (Exception e2) {
+            }
+        }
+    }
+
+    public void loadAllEmployee(ComboBox comboBox) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select * from Employees where EmployeeID between 'SEL%' and 'ADM%'");
+
+            ObservableList<Employee> employees = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                Employee emp = new Employee();
+                emp.setEmployeeID(resultSet.getString("employeeID"));
+                emp.setFirstName(resultSet.getString("firstName"));
+                emp.setLastName(resultSet.getString("lastName"));
+
+                employees.add(emp);
+            }
+
+            comboBox.setItems(employees);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try {
+                statement.close();
+            } catch (Exception e1) {
+            }
+            try {
+                resultSet.close();
+            } catch (Exception e2) {
+            }
         }
     }
 }
