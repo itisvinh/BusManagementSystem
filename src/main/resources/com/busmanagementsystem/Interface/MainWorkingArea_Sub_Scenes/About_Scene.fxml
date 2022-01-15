@@ -1,8 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="581.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.busmanagementsystem.Interface.MainWorkingArea_Sub_Scenes.AboutScene">
-
+<AnchorPane prefHeight="581.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="218.0" layoutY="102.0" prefHeight="40.0" prefWidth="327.0" style="-fx-background-color: rgb(103, 33, 59); -fx-background-radius: 30;" text="THIS IS A MID-TERM GROUP PROJECT " textFill="#e4e4e4" wrapText="true">
+         <font>
+            <Font name="Calibri Bold" size="16.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="136.0" layoutY="189.0" prefHeight="286.0" prefWidth="492.0" style="-fx-border-color: rgb(103, 33, 59); -fx-border-radius: 50;">
+         <children>
+            <Label alignment="CENTER" layoutX="102.0" layoutY="8.0" prefHeight="40.0" prefWidth="272.0" text="MADE AVAILABLE WITH THE CONTRIBUTIONS OF:" wrapText="true" />
+            <Label layoutX="99.0" layoutY="54.0" prefHeight="42.0" prefWidth="278.0" style="-fx-background-color: #8C254BFF; -fx-background-radius: 30;" text="ÔN QUANG VINH" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" layoutX="103.0" layoutY="58.0" prefHeight="35.0" prefWidth="60.0" style="-fx-background-color: #ff5400; -fx-background-radius: 30;" text="DEV 1" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="99.0" layoutY="103.0" prefHeight="42.0" prefWidth="278.0" style="-fx-background-color: #8C254BFF; -fx-background-radius: 30;" text="TRẦN NGUYỄN THIÊN KHÔI" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" layoutX="103.0" layoutY="107.0" prefHeight="35.0" prefWidth="60.0" style="-fx-background-color: #ff9e00; -fx-background-radius: 30;" text="DEV 2" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="99.0" layoutY="156.0" prefHeight="42.0" prefWidth="278.0" style="-fx-background-color: #8C254BFF; -fx-background-radius: 30;" text="BÙI NGUYỄN ĐĂNG KHOA" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" layoutX="103.0" layoutY="160.0" prefHeight="34.0" prefWidth="60.0" style="-fx-background-color: #0096c7; -fx-background-radius: 30;" text="TEST 1" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="102.0" layoutY="210.0" prefHeight="42.0" prefWidth="278.0" style="-fx-background-color: #8C254BFF; -fx-background-radius: 30;" text="NGUYỄN DUY KHANG" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" layoutX="106.0" layoutY="214.0" prefHeight="34.0" prefWidth="60.0" style="-fx-background-color: #2b9348; -fx-background-radius: 30;" text="TEST 2" textFill="#e4e4e4" wrapText="true">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

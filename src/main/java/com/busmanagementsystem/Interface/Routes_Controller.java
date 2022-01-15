@@ -13,12 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -50,9 +48,9 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
     private Button editRoute;
     @FXML
     private TableView<Schedule> routesTableView;
+    @FXML
+    private TextField searchBar;
     private String title = "Route Service";
-
-
     private ObservableList<Emp> list = FXCollections.observableArrayList();
 
     public static void setCellFactories(TableView<Schedule> tv) {
@@ -149,8 +147,6 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         }
     }
 
-    // fix: update scheduleID for the whole table after deletion
-    @Deprecated
     public void onActionRemoveRoute(ActionEvent event) {
         Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
 
@@ -174,7 +170,6 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         }
     }
 
-
     public void onMouseDoubleClickedTableView(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2)
             onActionEditRoute(null);
@@ -188,4 +183,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
     }
 
 
+    public void onKeyTypeFilterRoutes(KeyEvent keyEvent) {
+        routeService.loadRoutesWithKey(routesTableView, searchBar.getText());
+    }
 }

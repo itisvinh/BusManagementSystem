@@ -1,6 +1,7 @@
 package com.busmanagementsystem.Interface;
 
 import com.busmanagementsystem.Communicator;
+import com.busmanagementsystem.Database.Pojos.Employee;
 import com.busmanagementsystem.Database.Services.CredentialService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -35,15 +36,11 @@ public class LogIn_Controller implements Initializable {
     @FXML
     private PasswordField password;
     private TextField currTextField;
-    //
-    @FXML
-    private Button signIn, cancel;
-    @FXML
-    private ToggleSwitch toggleSwitch;
     @FXML
     private Pane controlsWrapper;
     @FXML
     private Label message;
+
 
     @FXML
     public void cancelButtonMouseClick(MouseEvent mouseEvent) {
@@ -61,11 +58,6 @@ public class LogIn_Controller implements Initializable {
         ((Button)mouseEvent.getSource()).setStyle("-fx-background-color: transparent;");
     }
 
-    @FXML
-    public void toggleSwitchMouseClick(MouseEvent mouseEvent) {
-        currMode = toggleSwitch.isSelected() ? admin : emp;
-        toggleSwitch.setText(currMode);
-    }
 
     @FXML
     public void textFieldMouseClick(MouseEvent mouseEvent) {
@@ -127,14 +119,18 @@ public class LogIn_Controller implements Initializable {
 
     public void signInButtonMouseClick(MouseEvent mouseEvent) throws Exception {
         if (validate()) {
-            switch (CredentialService.authenticate(username.getText(), password.getText())) {
+            StringBuilder employeeID = new StringBuilder("");
+
+            switch (CredentialService.authenticate(username.getText(), password.getText(), employeeID)) {
                 case "admin":
                     Communicator.startedAsAdmin = true;
                     startMainWorkingArea("Administrator");
+                    Communicator.currentEmployeeID = employeeID.toString();
                     break;
                 case "seller":
                     Communicator.startedAsAdmin = false;
                     startMainWorkingArea("Seller");
+                    Communicator.currentEmployeeID = employeeID.toString();
                     break;
                 default:
                     message.setText("Credential not found!");

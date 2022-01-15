@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="581.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="264.0" layoutY="105.0" prefHeight="234.0" prefWidth="230.0" style="-fx-background-color: #8f000e; -fx-background-radius: 120;">
+         <children>
+            <ImageView fitHeight="131.0" fitWidth="160.0" layoutX="35.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/logo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="12.0" layoutY="184.0" text="Let Us Level Up Your Journey">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.9300000071525574" green="0.9041845202445984" blue="0.07440000027418137" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.09473684430122375" green="0.9473684430122375" blue="0.8621052503585815" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow spread="0.64">
+               <color>
+                  <Color red="0.7263157963752747" green="0.6967251300811768" blue="0.6967251300811768" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
+      <Label layoutX="169.0" layoutY="354.0" prefHeight="131.0" prefWidth="441.0" text="This application is designed to fufil the job's requirements of the Route Scheduler and Ticket Selling Employee" textAlignment="CENTER" textFill="#892626" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

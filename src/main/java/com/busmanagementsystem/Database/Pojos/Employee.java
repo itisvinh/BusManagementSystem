@@ -1,5 +1,6 @@
 package com.busmanagementsystem.Database.Pojos;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import static com.busmanagementsystem.Database.Services.Utilities.concatAll;
@@ -9,7 +10,7 @@ public class Employee {
     private String lastName;
     private String firstName;
     private String position;
-    private LocalDateTime birthDate;
+    private Date birthDate;
     private String phoneNumber;
     private String email;
     private String address;
@@ -17,7 +18,7 @@ public class Employee {
     public Employee() {}
 
     public Employee(String employeeID, String lastName, String firstName, String position,
-                    LocalDateTime birthDate, String phoneNumber, String email, String address) {
+                    Date birthDate, String phoneNumber, String email, String address) {
         this.employeeID = employeeID;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -60,11 +61,11 @@ public class Employee {
         this.position = position;
     }
 
-    public LocalDateTime getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 

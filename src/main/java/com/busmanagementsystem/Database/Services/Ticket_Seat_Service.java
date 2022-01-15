@@ -7,6 +7,8 @@ import com.busmanagementsystem.Database.Pojos.Ticket_Seat;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ticket_Seat_Service {
     public int addNewTicket_Seat(Ticket_Seat ticket_seat) {
@@ -51,5 +53,34 @@ public class Ticket_Seat_Service {
             try { resultSet.close(); } catch (Exception e2) {}
         }
         return affected_rows;
+    }
+
+    public List<Integer> getSeatsNumbersOf(String ticketID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select SeatNumber " +
+                    " from Tickets_Seats ts join Seats s on ts.SeatID = s.SeatID " +
+                    " where TicketID = ?" +
+                    " order by SeatNumber");
+            statement.setString(1, ticketID);
+            resultSet = statement.executeQuery();
+
+            List<Integer> seatNumbers = new ArrayList<>();
+            while (resultSet.next())
+                seatNumbers.add(resultSet.getInt("SeatNumber"));
+
+            if (seatNumbers.size() > 0)
+                return seatNumbers;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
     }
 }
