@@ -148,6 +148,39 @@ public class RouteService {
         }
     }
 
+    public void loadRoutesWithKey(TableView tableView, String key){
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Schedules " +
+                    "where ScheduleID like ?" +
+                    " or BusID like ?" +
+                    " or DriverID like ?" +
+                    " or StartingLocation like ?" +
+                    " or Destination like ?" +
+                    " or DepartureTime like ?" +
+                    " or Price like ?");
+
+            for (int i = 1; i <= 7; i++)
+                statement.setString(i, "%" + key + "%");
+            resultSet = statement.executeQuery();
+
+            if (!ColumnsAdded)
+                loadColumns(tableView, resultSet);
+
+            loadDataIntoTableView(tableView, resultSet);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+    }
+
     private void populateComboBox(ComboBox comboBox, String default_SQL) {
         Statement statement = null;
         ResultSet resultSet = null;
@@ -481,5 +514,63 @@ public class RouteService {
         return null;
     }
 
+    public float getSchedulePrice(String scheduleID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select Price from Schedules where ScheduleID = ?");
+            statement.setString(1, scheduleID);
+
+            float price = 0;
+            if (resultSet.next())
+                price = resultSet.getFloat("Price");
+
+            return price;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return 0;
+    }
+
+    public Schedule getScheduleOf(String scheduleID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Schedules where ScheduleID = ?");
+            statement.setString(1, scheduleID);
+            resultSet = statement.executeQuery();
+
+            Schedule schedule = null;
+            if (resultSet.next()) {
+                schedule = new Schedule();
+                schedule.setScheduleID(resultSet.getString("ScheduleID"));
+                schedule.setDriverID(resultSet.getString("DriverID"));
+                schedule.setBusID(resultSet.getString("BusID"));
+                schedule.setDestination(resultSet.getString("Destination"));
+                schedule.setStartingLocation(resultSet.getString("StartingLocation"));
+                schedule.setDepartureTime(resultSet.getTime("DepartureTime"));
+                schedule.setPrice(resultSet.getFloat("Price"));
+            }
+            if (schedule != null)
+                return schedule;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
 
 }

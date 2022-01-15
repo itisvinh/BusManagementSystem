@@ -128,7 +128,7 @@ public class MainWorkingArea_Controller implements Initializable {
         mainMenuButtonHighlight((Button) mouseEvent.getSource());
         try {
             if (aboutNode == null) {
-                aboutNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/example.fxml"));
+                aboutNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/About_Scene.fxml"));
                 anchorChildFitParent(aboutNode);
             }
             // remove all currently added nodes from mainSceneArea
@@ -156,7 +156,7 @@ public class MainWorkingArea_Controller implements Initializable {
         }
         try {
             if (homeNode == null) {
-                homeNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/example.fxml"));
+                homeNode = (AnchorPane) FXMLLoader.load(this.getClass().getResource("MainWorkingArea_Sub_Scenes/Home_Scene.fxml"));
                 anchorChildFitParent(homeNode);
             }
             // remove all currently added nodes from mainSceneArea

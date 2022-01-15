@@ -306,5 +306,35 @@ public class TicketService {
         return null;
     }
 
+    public Ticket getTicketOf(String ticketID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Tickets where TicketID = ?");
+            statement.setString(1, ticketID);
+            resultSet = statement.executeQuery();
+
+            Ticket ticket = null;
+            if (resultSet.next()) {
+                ticket = new Ticket();
+                ticket.setTicketID(resultSet.getString("TicketID"));
+                ticket.setCustomerID(resultSet.getString("CustomerID"));
+                ticket.setScheduleID((resultSet.getString("ScheduleID")));
+                ticket.setBookingStatus(resultSet.getString("BookingStatus"));
+            }
+            if (ticket != null)
+                return ticket;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
+
 }
 

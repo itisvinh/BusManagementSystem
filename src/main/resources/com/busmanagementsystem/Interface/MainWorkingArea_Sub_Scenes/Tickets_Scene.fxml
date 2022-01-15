@@ -327,7 +327,7 @@
             </Button>
             <Button fx:id="searchTickets" layoutX="30.0" layoutY="101.0" mnemonicParsing="false" onAction="#onActionSearchTickets" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="SELECT A TICKET">
                <graphic>
-                  <FontIcon iconLiteral="fas-search" iconSize="15" />
+                  <FontIcon iconLiteral="fab-searchengin" iconSize="15" />
                </graphic>
             </Button>
             <Label alignment="CENTER" layoutX="238.0" layoutY="22.0" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="1" />
@@ -374,12 +374,12 @@
       </GridPane>
       <Button fx:id="clearSelection" layoutX="467.0" layoutY="417.0" mnemonicParsing="false" onAction="#onActionClearSelection" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CLEAR SELECTION">
          <graphic>
-            <FontIcon iconLiteral="fas-search" iconSize="15" />
+            <FontIcon iconLiteral="fas-ban" iconSize="15" />
          </graphic>
       </Button>
-      <Button fx:id="viewInfo" layoutX="467.0" layoutY="375.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="VIEW INFO">
+      <Button fx:id="printTicket" onAction="#onActionPrintTicket" layoutX="467.0" layoutY="375.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="PRINT TICKET">
          <graphic>
-            <FontIcon iconLiteral="fas-sync-alt" iconSize="15" />
+            <FontIcon iconLiteral="fas-print" iconSize="15" />
          </graphic>
       </Button>
       <AnchorPane fx:id="ticketFunctionalButtonArea" layoutX="453.0" layoutY="173.0" prefHeight="193.0" prefWidth="226.0" styleClass="ticket-function-button-background">
@@ -391,7 +391,7 @@
             </Button>
             <Button fx:id="declineTicket" layoutX="14.0" layoutY="144.0" mnemonicParsing="false" onAction="#onActionDeclineTicket" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="DECLINE TICKET">
                <graphic>
-                  <FontIcon iconLiteral="fas-ban" iconSize="15" />
+                  <FontIcon iconLiteral="far-trash-alt" iconSize="15" />
                </graphic>
             </Button>
             <Button fx:id="changeSeats" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" onAction="#onActionChangeSeats" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="CHANGE SEATS">
@@ -401,7 +401,7 @@
             </Button>
             <Button fx:id="purchaseTicket" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#onActionPurchaseTicket" prefHeight="34.0" prefWidth="197.0" styleClass="functionButton" stylesheets="@../CSS/Routes.css" text="PURCHASE TICKET">
                <graphic>
-                  <FontIcon iconLiteral="fas-sync-alt" iconSize="15" />
+                  <FontIcon iconLiteral="far-money-bill-alt" iconSize="15" />
                </graphic>
             </Button>
          </children>

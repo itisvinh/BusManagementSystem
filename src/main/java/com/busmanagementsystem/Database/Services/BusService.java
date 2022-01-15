@@ -130,4 +130,33 @@ public class BusService {
         }
         return seats;
     }
+
+    public Bus getBusOf(String busID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Buses where BusID = ?");
+            statement.setString(1, busID);
+            resultSet = statement.executeQuery();
+
+            Bus bus = null;
+            if (resultSet.next()) {
+                bus = new Bus();
+                bus.setBusID(resultSet.getString("BusID"));
+                bus.setBusPlateNumber(resultSet.getString("BusPlateNumber"));
+            }
+            if (bus != null)
+                return bus;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            //return null;
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
 }

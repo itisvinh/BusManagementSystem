@@ -115,4 +115,34 @@ public class CustomerService {
         return customer;
     }
 
+    public Customer getCustomerOf(String customerID) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection conn = DBConnection.getConn();
+            statement = conn.prepareStatement("select * from Customers where CustomerID = ?");
+            statement.setString(1, customerID);
+            resultSet = statement.executeQuery();
+
+            Customer customer = null;
+            if (resultSet.next()) {
+                customer = new Customer();
+                customer.setCustomerID(resultSet.getString("CustomerID"));
+                customer.setFirstName(resultSet.getString("FirstName"));
+                customer.setLastName((resultSet.getString("LastName")));
+                customer.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                customer.setGender(resultSet.getString("Gender"));
+            }
+            if (customer != null)
+                return customer;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            try { statement.close(); } catch (Exception e1) {}
+            try { resultSet.close(); } catch (Exception e2) {}
+        }
+        return null;
+    }
 }

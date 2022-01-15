@@ -2,10 +2,8 @@ package com.busmanagementsystem.Interface;
 
 import com.busmanagementsystem.Communicator;
 import com.busmanagementsystem.Database.Pojos.*;
-import com.busmanagementsystem.Database.Services.BusService;
-import com.busmanagementsystem.Database.Services.RouteService;
-import com.busmanagementsystem.Database.Services.TicketService;
-import com.busmanagementsystem.Database.Services.Ticket_Seat_Service;
+import com.busmanagementsystem.Database.Services.*;
+import com.busmanagementsystem.Report.TicketPrinter;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,6 +41,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
     private BusService busService = new BusService();
     private TicketService ticketService = new TicketService();
     private Ticket_Seat_Service ticketSeatService = new Ticket_Seat_Service();
+    private CustomerService customerService = new CustomerService();
     @FXML
     private AnchorPane ticketFunctionalButtonArea;
     @FXML
@@ -50,7 +49,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
     @FXML
     private TabPane tabPane;
     @FXML
-    private Button viewInfo;
+    private Button printTicket;
     @FXML
     private Button clearSelection;
     @FXML
@@ -105,12 +104,12 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
         if (Communicator.startedAsAdmin == true) {
             for (var child : ticketFunctionalButtonArea.getChildren())
                 child.setDisable(true);
-            viewInfo.setDisable(true);
+            printTicket.setDisable(true);
         }
         comboBoxBus.setDisable(true);
         tabPane.setDisable(true);
         clearSelection.setDisable(true);
-        viewInfo.setDisable(true);
+        printTicket.setDisable(true);
         changeConfirmation.setVisible(false);
         prepareNotification("Notice", "Select a bus to view seats").showInformation();
     }
@@ -200,6 +199,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
             updateSeats();
             selectedSeats.clear();
             clearSelection.setDisable(true);
+            printTicket.setDisable(true);
         }
     }
 
@@ -235,11 +235,10 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
     }
 
     public void onActionPurchaseTicket(ActionEvent event) {
-
             try {
                 if (selectedSeats.size() > 0) {
                     LocalTime departureTime = getDepartureTime();
-                    if (LocalTime.now().plusMinutes(5).isBefore(departureTime)) {
+                    if (LocalTime.now().isBefore(departureTime.minusMinutes(5))) {
                         boolean canPurchase = true;
                         boolean allEmpty = true;
                         boolean allBooked = true;
@@ -270,7 +269,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
                             prepareNotification("Ticket_Seat Service", "ALL seats of the ticket HAVE TO be selected").showWarning();
 
                     } else
-                        prepareNotification("Ticket Service", "These seats can only be purchased\n 5 MINUTES PRIOR the time of: " + departureTime.toString()).showWarning();
+                        prepareNotification("Ticket Service", "These seats can only be purchased\n PRIOR the time of: " + departureTime.minusMinutes(5).toString()).showWarning();
                 }
 
             } catch (Exception ex) {
@@ -325,7 +324,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
             if (selectedSeats.size() > 0) {
                 // notice here
                 LocalTime departureTime = getDepartureTime();
-                if (LocalTime.now().plusMinutes(5).isBefore(departureTime)) {
+                if (LocalTime.now().isBefore(departureTime.minusMinutes(60))) {
                     boolean canAdd = true;
                     for (VBox vBox : selectedSeats) {
                         Text text = (Text) vBox.getChildren().get(1);
@@ -344,8 +343,9 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
                         tryAddingNewTicket("BOOKED");
 
                 } else
-                    prepareNotification("Ticket Service", "These seats can only be booked\n 1 HOUR PRIOR the time of: " + departureTime.toString()).showWarning();
-            }
+                    prepareNotification("Ticket Service", "These seats can only be booked\n PRIOR the time of: " + departureTime.minusMinutes(60).toString()).showWarning();
+            } else
+                prepareNotification("Ticket Service", "PLease select seats or a ticket first").showWarning();
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -401,6 +401,9 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
                 currentScheduleID = ticket.getScheduleID();
                 // enable comboBoxBus
                 comboBoxBus.setDisable(false);
+                // enable print
+                if (!Communicator.startedAsAdmin)
+                    printTicket.setDisable(false);
                 // load buses into comboBoxBus
                 busService.loadBuses(comboBoxBus, concatAll(ticket.getFrom(), "#", ticket.getTo(), "#", ticket.getDepartureTime().toString()));
                 // select matched busID of the list
@@ -418,6 +421,31 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+
+
+    public void onActionPrintTicket(ActionEvent event) {
+        if (currentTicketID != null) {
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            // get corresponding pojos
+            Schedule schedule = routeService.getScheduleOf(currentScheduleID);
+            System.out.println("ticket: " + schedule);
+            Bus bus = busService.getBusOf(currentBusID);
+            Ticket ticket = ticketService.getTicketOf(currentTicketID);
+            Customer customer = customerService.getCustomerOf(ticket.getCustomerID());
+            // set printer's properties
+            ticketPrinter.setPrice(schedule.getPrice());
+            ticketPrinter.setFrom(schedule.getStartingLocation());
+            ticketPrinter.setTo(schedule.getDestination());
+            ticketPrinter.setTicketID(currentTicketID);
+            ticketPrinter.setPlateNumber(bus.getBusPlateNumber());
+            ticketPrinter.setCustomerName(customer.getFirstName() + " " + customer.getLastName());
+            ticketPrinter.setPhone(customer.getPhoneNumber());
+            ticketPrinter.setDepartureTime(schedule.getDepartureTime().toString());
+            // print ticket
+            ticketPrinter.print();
+        } else
+            prepareNotification("Printer service", "Please select a ticket first").showWarning();
     }
 
     public static void setCellFactories(TableView<ExtTicket> tv) {
@@ -486,7 +514,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
     public void onActionChangeSeats(ActionEvent event) {
         // if there is any seat being selected
         LocalTime departureTime = getDepartureTime();
-        if (LocalTime.now().plusMinutes(60).isBefore(departureTime)) {
+        if (LocalTime.now().isBefore(departureTime.minusMinutes(60))) {
             if (selectedSeats.size() > 0) {
                 if (allSelectedSeatsFromTheSameTicket() && canChangeWhere("BOOKED")) {
                     prevScheduleID = currentScheduleID;
@@ -502,7 +530,7 @@ public class Tickets_Controller extends Tickets_Routes_Base implements Initializ
             } else
                 prepareNotification("Ticket Service", "Select seats to change").showInformation();
         } else
-            prepareNotification("Ticket Service", "Tickets can ONLY be changed 1 HOUR before the time of [" + departureTime + "]").showInformation();
+            prepareNotification("Ticket Service", "Tickets can ONLY be changed before the time of [" + departureTime.minusMinutes(60) + "]").showInformation();
 
     }
 

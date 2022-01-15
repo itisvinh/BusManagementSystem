@@ -93,7 +93,7 @@
             <FontIcon iconLiteral="fas-search" iconSize="15" />
          </graphic>
       </Button>
-      <TextField layoutX="45.0" layoutY="215.0" prefHeight="30.0" prefWidth="653.0" promptText="TYPE TO SEARCH FOR ANY MATCHING FILED" styleClass="searchBar" stylesheets="@../CSS/Routes.css" />
+      <TextField fx:id="searchBar" layoutX="45.0" layoutY="215.0" onKeyTyped="#onKeyTypeFilterRoutes" prefHeight="30.0" prefWidth="653.0" promptText="TYPE TO SEARCH FOR ANY MATCHING FILED" styleClass="searchBar" stylesheets="@../CSS/Routes.css" />
       <FontIcon iconLiteral="fas-search" iconSize="15" layoutX="663.0" layoutY="235.0" wrappingWidth="18.399999999999864" />
    </children>
 </AnchorPane>

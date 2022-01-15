@@ -26,7 +26,7 @@
         </Label>
         <Button fx:id="cancel" layoutX="363.0" layoutY="120.0" mnemonicParsing="false" onAction="#onActionCancel" prefHeight="30.0" prefWidth="66.0" styleClass="functionButton" stylesheets="@../../CSS/Routes.css" text="CANCEL" />
       <SearchableComboBox fx:id="comboBoxTime" layoutX="106.0" layoutY="120.0" onAction="#onActionComboBoxTime" prefHeight="30.0" prefWidth="235.0" styleClass="searchable-combo-box" stylesheets="@../../CSS/Routes.css" />
-      <SearchableComboBox fx:id="comboBoxFrom" layoutX="106.0" layoutY="31.0" onAction="#onActionComboBoxFrom" prefHeight="30.0" prefWidth="410.0" promptText="from" styleClass="searchable-combo-box" stylesheets="@../../CSS/Routes.css" />
-      <SearchableComboBox fx:id="comboBoxTo" layoutX="106.0" layoutY="74.0" onAction="#onActionComboBoxTo" prefHeight="30.0" prefWidth="410.0" promptText="from" styleClass="searchable-combo-box" stylesheets="@../../CSS/Routes.css" />
+      <SearchableComboBox fx:id="comboBoxFrom" layoutX="106.0" layoutY="31.0" onAction="#onActionComboBoxFrom" prefHeight="30.0" prefWidth="410.0" promptText="select starting location" styleClass="searchable-combo-box" stylesheets="@../../CSS/Routes.css" />
+      <SearchableComboBox fx:id="comboBoxTo" layoutX="106.0" layoutY="74.0" onAction="#onActionComboBoxTo" prefHeight="30.0" prefWidth="410.0" promptText="select destination" styleClass="searchable-combo-box" stylesheets="@../../CSS/Routes.css" />
    </children>
 </Pane>

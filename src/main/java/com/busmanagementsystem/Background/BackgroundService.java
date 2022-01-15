@@ -1,7 +1,9 @@
-package com.busmanagementsystem.Database.Services;
+package com.busmanagementsystem.Background;
 
 import com.busmanagementsystem.Database.Pojos.Schedule;
 import com.busmanagementsystem.Database.Pojos.Ticket;
+import com.busmanagementsystem.Database.Services.RouteService;
+import com.busmanagementsystem.Database.Services.TicketService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,5 +40,16 @@ public class BackgroundService {
                 if (ticket.getBookingStatus().equals("BOOKED"))
                     ticketService.removeTicket(ticket);
         }
+    }
+
+    public boolean removeTicketsOfDepartedSchedule(String scheduleID) {
+        ObservableList<Ticket> tickets = ticketService.getTickets(scheduleID);
+
+        if (tickets != null && tickets.size() > 0) {
+            for (var ticket : tickets)
+                ticketService.removeTicket(ticket);
+            return true;
+        } else
+            return false;
     }
 }

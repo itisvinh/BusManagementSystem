@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ticket" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9af7c6e-6803-4710-90fb-1ecb968cf292">
+	<parameter name="From" class="java.lang.String"/>
+	<parameter name="To" class="java.lang.String"/>
+	<parameter name="PlateNumber" class="java.lang.String"/>
+	<parameter name="Date" class="java.lang.String"/>
+	<parameter name="Seat" class="java.lang.String"/>
+	<parameter name="EName" class="java.lang.String"/>
+	<parameter name="Name" class="java.lang.String"/>
+	<parameter name="Tel" class="java.lang.String"/>
+	<parameter name="Price" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="595" height="79" forecolor="#F53B38" uuid="692cffad-8f9d-4f47-bb41-c508304bcb63"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="37"/>
+				</textElement>
+				<text><![CDATA[BOARDING PASS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="86">
+			<textField>
+				<reportElement x="201" y="10" width="59" height="30" uuid="29d283ba-7fef-4219-952f-cb4d42aba108"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{From}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="10" width="53" height="30" uuid="dc21cc6b-bc7c-4b8d-8285-dde5a27dd8fc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{To}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="10" width="51" height="30" uuid="093db863-5c1f-4ab4-b896-21c49b7fc4a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[=>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="40" width="59" height="20" uuid="8efc202e-2e6b-419a-8dee-3ed9cd59cf58"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BUS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="267" y="40" width="104" height="20" uuid="5b538fcb-c71d-4011-b37a-812190cbdc72"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PlateNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="267" splitType="Stretch">
+			<textField>
+				<reportElement x="170" y="10" width="80" height="30" uuid="77d8ae67-7afc-41ca-9fcf-ad7e35d994a9"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="40" width="60" height="30" forecolor="#2F9431" uuid="6ac903b0-b503-4e9a-a69a-96128468faac"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Seat:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="70" width="60" height="30" forecolor="#2F9431" uuid="806478cd-1f84-4e10-b355-f8c961b35dde"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="10" width="80" height="30" forecolor="#2F9431" uuid="229fac34-f2ef-4876-931e-bca4747b50c8"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Departure Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="100" width="60" height="30" forecolor="#2F9431" uuid="49f64b48-ed42-41b9-ad72-bcee4a5a062e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tel:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="40" width="80" height="30" uuid="408e7009-f3bb-42a2-a506-64b56552403a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Seat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="70" width="80" height="30" uuid="d776b425-b85f-459a-a27b-f96c56343518"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="100" width="80" height="30" uuid="f314ff26-536e-4fa1-808f-b18d6e9d36b5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Tel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="10" width="30" height="30" forecolor="#2F9431" uuid="63571263-d20c-482f-83a8-c4d80049ae10"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Price:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="330" y="10" width="50" height="30" uuid="86723c50-6922-486c-8062-690185dd91cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Price}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="470" y="10" width="60" height="30" forecolor="#000500" uuid="56e3f605-3d04-4502-aea4-5b35e465fe69"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="190" width="60" height="30" forecolor="#2F9431" uuid="770eb74f-8dbe-48cf-aa98-a5e0c482857e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Employee:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="220" width="60" height="30" forecolor="#2F9431" uuid="8e1fe082-a996-4609-8430-dd692a18de5a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Printed Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="190" width="100" height="30" uuid="959bd6d6-cbee-48f0-b202-e7ffbbf3ea4a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{EName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yy h:mm a">
+				<reportElement x="170" y="220" width="100" height="30" uuid="e755771b-f59b-4828-973d-1475432e0585"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-20" y="140" width="595" height="40" forecolor="#F53B38" uuid="bd5daae0-28ed-426f-9e4f-cd90b1ef8596"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[To be present at this office before departure time]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
