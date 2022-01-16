@@ -146,12 +146,13 @@ public class RouteEditor_Controller implements Initializable {
     // extract data from the interface controls into a Schedule Object
     private Schedule extractSchedule() throws IllegalArgumentException{
         Schedule schedule = new Schedule();
+        schedule.setScheduleID(routeID.getText());
         schedule.setBusID( ((Bus) busID.getSelectionModel().getSelectedItem()).getBusID());
         schedule.setDriverID( ((Employee) driverID.getSelectionModel().getSelectedItem()).getEmployeeID());
         schedule.setStartingLocation(startingLocation.getText());
         schedule.setDestination(destination.getText());
         schedule.setDepartureTime(Time.valueOf(departureTime.getText()));
-        schedule.setPrice(Integer.valueOf(price.getText()));
+        schedule.setPrice(Float.valueOf(price.getText()));
         return schedule;
     }
 

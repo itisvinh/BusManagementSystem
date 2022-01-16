@@ -328,23 +328,23 @@ public class RouteService {
                                         " where ScheduleID = ?");
             statement = conn.prepareStatement(sql);
 
-            statement.setString(2, schedule.getBusID());
-            statement.setString(3, schedule.getDriverID());
-            statement.setString(4, schedule.getStartingLocation());
-            statement.setString(5, schedule.getDestination());
-            statement.setTime(6, schedule.getDepartureTime());
-            statement.setFloat(7, schedule.getPrice());
+            statement.setString(1, schedule.getBusID());
+            statement.setString(2, schedule.getDriverID());
+            statement.setString(3, schedule.getStartingLocation());
+            statement.setString(4, schedule.getDestination());
+            statement.setTime(5, schedule.getDepartureTime());
+            statement.setFloat(6, schedule.getPrice());
+            statement.setString(7, schedule.getScheduleID());
 
-            affectedRows = statement.executeUpdate();
+            return statement.executeUpdate();
 
         } catch (Exception ex) {
             System.out.println(ex);
-            //return null;
         } finally {
             try { statement.close(); } catch (Exception e1) {}
             try { resultSet.close(); } catch (Exception e2) {}
         }
-        return affectedRows;
+        return 0;
     }
 
     public boolean deleteSchedule(String scheduleID) {
