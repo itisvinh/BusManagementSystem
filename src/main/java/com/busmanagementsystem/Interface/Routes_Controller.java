@@ -131,9 +131,10 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         }
     }
 
-    public void onActionEditRoute(ActionEvent event) {
+    public void onActionEditRoute(ActionEvent event){
         try {
             Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
+            System.out.println("beforeeee: " + schedule);
             if (schedule != null) {
                 if (startEditorStage(schedule) > 0) {
                     routeService.loadRoutes(routesTableView, "##");
@@ -147,7 +148,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         }
     }
 
-    public void onActionRemoveRoute(ActionEvent event) {
+    public void onActionRemoveRoute(ActionEvent event){
         Schedule schedule = routesTableView.getSelectionModel().getSelectedItem();
 
         try {
@@ -170,7 +171,7 @@ public class Routes_Controller extends Tickets_Routes_Base implements Initializa
         }
     }
 
-    public void onMouseDoubleClickedTableView(MouseEvent mouseEvent) {
+    public void onMouseDoubleClickedTableView(MouseEvent mouseEvent){
         if (mouseEvent.getClickCount() == 2)
             onActionEditRoute(null);
     }
